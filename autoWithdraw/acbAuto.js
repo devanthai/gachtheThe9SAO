@@ -138,7 +138,7 @@ start = async () => {
 start()
 
 
-const urlGetCode = "https://acb.doitien.me/getOTP9sao"
+const urlGetCode = "http://139.180.133.253:8888/getOTP9sao"
 let ckAcb = (urlapi, username, password, accountNumber, tranfer_to, napasBankCode, amount, message, otp_type = 'OTPS') => {
 
     return new Promise(async (resolve) => {
