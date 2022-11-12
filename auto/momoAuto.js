@@ -18,7 +18,7 @@ setInterval(async () => {
                 json.forEach(async (element) => {
                     console.log(element)
                     if (element.io == 1) {
-                        const description = element.noidung.tostring().toLowerCase()
+                        const description = element.noidung.toString().toLowerCase()
                         var creditAmount = element.sotien
                         creditAmount = Number(creditAmount)
                         if (creditAmount != 0 && description.split("muathe").length == 2) {
