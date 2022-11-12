@@ -44,7 +44,7 @@ start = async () => {
                         else {
                             rutTiens.status = -1
                             rutTiens.save()
-                            BotTelegram.sendMessage(process.env.GROUP_TELEGRAM_ID, "Chuyen tien MOMO loi " + rutTiens.bank.stk + " " + rutTiens.amount);
+                            BotTelegram.sendMessage(process.env.GROUP_TELEGRAM_ID, "Chuyen tien MOMO loi " + rutTiens.bank.stk + " " + rutTiens.amount+"\n"+body);
                         }
                     }
                 })
