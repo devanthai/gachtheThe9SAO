@@ -1,0 +1,203 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <section class="row">
+                    <div class=" col-md-7">
+                        <h4><span class="text-uppercase">Chuyển số dư</span></h4>
+                        <form action="/wallet/transfer" method="POST" autocomplete="off">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Chọn quỹ:</td>
+                                        <td><select id="wallet-num" name="payer_wallet"
+                                                class="form-control getWalletAjax" style="padding: 0px">
+                                                <option value="<%-user.Username%>">Tài khoản quỹ VND
+                                                    - <%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tài khoản nhận:</td>
+                                        <td><input id="get-user-wallet" type="text"
+                                                placeholder="Nhập email hoặc số điện thoại hoặc username"
+                                                class="form-control getWalletAjax" name="payee_info" value=""></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tên người nhận:</td>
+                                        <td><input id="payee_name" type="text" class="form-control" name="payee_name"
+                                                value="" readonly="">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Số tiền:</td>
+                                        <td><input type="text" class="form-control" name="amount" value=""
+                                                placeholder="đ">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nội dung:</td>
+                                        <td>
+                                            <textarea name="description" id="description" class="form-control"
+                                                placeholder="Nội dung"></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <button type="submit" class="btn btn-lg btn-info">Chuyển quỹ</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                    <div class=" col-md-5">
+                        <h4><span class="text-uppercase">Phí chuyển tiền</span></h4>
+
+                        <table class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Loại</th>
+                                    <th>VND</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Phí cố định</td>
+                                    <td>0 VND</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí %</td>
+                                    <td>0%</td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng chuyển tối đa trong ngày</td>
+                                    <td>Không giới hạn</td>
+                                </tr>
+                                <tr>
+                                    <td>Số tiền chuyển tối thiểu</td>
+                                    <td>10,000 VND</td>
+                                </tr>
+                                <tr>
+                                    <td>Số tiền chuyển tối đa</td>
+                                    <td>20,000,000 VND</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-sm-12 table-responsive">
+                        <h4><span class="text-uppercase">Lịch sử chuyển tiền</span></h4>
+                        <table class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Đơn hàng</th>
+                                    <th>Số tiền</th>
+                                    <th>Tài khoản gửi/nhận</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Trạng thái</th>
+                                    <th>Nội dung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              
+
+                                <% if (hisdata.his.length<=0) { %>
+                                    <tr class="text-center"> <td colspan="6">Bạn chưa thực hiện giao dịch nào</td> </tr>
+                                    <% }  %>
+                                <% for (var i = 0; i < hisdata.his.length; i++) { %>
+                                    <tr>
+                                        <td scope="col"><%= hisdata.his[i].transId %></td>
+                                        <td>
+                                            <%if(hisdata.his[i].to.uid != hisdata.uid){%>
+                                                <b> <span class="text-danger">-<%=String(Math.round(hisdata.his[i].amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</span> </b>
+                                            <%}else{%>
+                                                <b> <span class="text-success">+<%=String(Math.round(hisdata.his[i].amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</span> </b>
+                                            <%}%>
+                                        </td>
+                                        <td>
+                                            <%if(hisdata.his[i].to.uid != hisdata.uid){%>
+                                                <%= hisdata.his[i].to.name %> <br><span class="text-muted"><%= hisdata.his[i].to.Username %></span>
+                                            <%}else{%>
+                                                <%= hisdata.his[i].from.name %> <br><span class="text-muted"><%= hisdata.his[i].from.Username %></span>
+                                            <%}%>
+                                        </td>
+                                        <td>
+                                            <%= new Date(Date.parse(hisdata.his[i].time)).toLocaleString("pt-BR")%>
+                                        </td>
+                                        <td>
+                                            <span class="label label-success">Thành công</span>
+                                        </td>
+                                        <td>
+                                            <%=hisdata.his[i].comment %>
+                                        </td>
+                                    
+                                    </tr>
+                                <% } %>
+                            </tbody>
+
+                        </table>
+
+                        
+
+                        <% if (hisdata.pages > 0) { %>
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                <% if (hisdata.current == 1) { %>
+                                    <li class="page-item disabled"><a class="page-link">Đầu</a></li>
+                                <% } else { %>
+                                    <li><a class="page-link" href="/wallet/transfer?page=1">Đầu</a></li>
+                                <% } %>
+                                <% var i = (Number(hisdata.current) > 5 ? Number(hisdata.current) - 5 : 1) %>
+                                <% if (i !== 1) { %>
+                                    <li class="disabled"><a class="page-link">...</a></li>
+                                <% } %>
+                                <% for (; i <= (Number(hisdata.current) + 5) && i <= hisdata.pages; i++) { %>
+                                    <% if (i == hisdata.current) { %>
+                                        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                                    <% } else { %>
+                                        <li><a class="page-link" href="/wallet/transfer?page=<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                    <% if (i == Number(hisdata.current) + 5 && i < hisdata.pages) { %>
+                                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                                    <% } %>
+                                <% } %>
+                                <% if (hisdata.current == hisdata.pages) { %>
+                                    <li class="page-item disabled"><a class="page-link">Cuối</a></li>
+                                <% } else { %>
+                                    <li><a class="page-link" href="/wallet/transfer?page=<%= hisdata.pages %>">Cuối</a></li>
+                                <% } %>
+                            </ul>
+                        </nav>
+                        <% } %>
+                    </div>
+                </section>
+                <script id="facebook-jssdk" src="https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js"></script>
+                <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $("#get-user-wallet").on('change', function (e) {
+                            var userinfo = $(this).val();
+                            $.ajax({
+                                url: "/wallet/transfer/get-user-name",
+                                method: "post",
+                                data: {
+                                    payee_info: userinfo,
+                                },
+                                success: function (data) {
+                                    if (data) {
+                                        $("#payee_name").attr('value', data);
+                                    }
+                                }
+                            });
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>

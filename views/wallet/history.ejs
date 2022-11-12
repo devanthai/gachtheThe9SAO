@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <section>
+                    <h4><span class="text-uppercase">Lịch sử quỹ</span></h4>
+                    <div class="blockContent">
+                        <div class="row table-responsive">
+                            <div class="col-md-12">
+                                <form action="" name="formSearch" method="GET" class="form-inline">
+                                    <div class="form-group" style="width: 100%">
+                                        <input name="search" placeholder="Nhập mã GD hoặc Nội dung" class="form-control"
+                                            size="30px" value="">
+                                        <input class="form-control "
+                                            value="<%-new Date().toLocaleDateString('zh-Hans-CN')%>" name="fromdate"
+                                            id="datepicker">
+                                        <input class="form-control "
+                                            value="<%-new Date().toLocaleDateString('zh-Hans-CN')%>" name="todate"
+                                            id="datepicker2">
+                                        <button type="submit" name="submit" value="filter"
+                                            class="btn btn-success btn-sm"><i class="fa fa-search"></i> Lọc tìm kiếm
+                                        </button>
+                                        <button type="submit" name="submit" value="excel" class="btn btn-info btn-sm"><i
+                                                class="fa fa-download"></i> Xuất excel
+                                        </button>
+                                    </div>
+                                </form>
+                                <table id="example1" class="table table-bordered table-striped dataTable"
+                                    style="margin-top: 10px">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã đơn</th>
+                                            <th>Trước GD</th>
+                                            <th>Số tiền</th>
+                                            <th>Sau GD</th>
+                                            <th>Tiền tệ</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Nội dung</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <% for (var i=0; i < hisdata.his.length; i++) { %>
+                                            <tr>
+                                                <td scope="col">
+                                                    <%= hisdata.his[i].transid %>
+                                                </td>
+
+                                                <td scope="col">
+                                                    <%=String(Math.round(hisdata.his[i].firtBalance)).replace(
+                                                        /(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                </td>
+
+
+
+
+                                                <td>
+                                                    <%if(hisdata.his[i].amount<0){%>
+                                                        <b> <span class="text-danger">
+                                                                <%=Math.round(hisdata.his[i].amount).toString().replace(
+                                                                    /\B(?=(\d{3})+(?!\d))/g, ',' )%>đ
+                                                            </span> </b>
+                                                        <%}else{%>
+                                                            <b> <span class="text-success">+<%=String(Math.round(hisdata.his[i].amount)).replace(
+                                                                        /(.)(?=(\d{3})+$)/g,'$1,')%>đ</span> </b>
+                                                            <%}%>
+                                                </td>
+
+
+
+
+
+                                                <td>
+                                                    <%=String(Math.round(hisdata.his[i].lastBalance)).replace(
+                                                        /(.)(?=(\d{3})+$)/g,'$1,')%>đ
+                                                </td>
+
+
+
+                                                <td>
+                                                    <%= hisdata.his[i].tiente %>
+                                                </td>
+
+
+                                                <td>
+                                                    <%= new
+                                                        Date(Date.parse(hisdata.his[i].time)).toLocaleString("pt-BR")%>
+                                                </td>
+                                                <td>
+                                                    <%= hisdata.his[i].content %>
+                                                </td>
+
+
+                                            </tr>
+                                            <% } %>
+
+
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                                <% if (hisdata.pages> 0) { %>
+                                    <nav aria-label="...">
+                                        <ul class="pagination">
+                                            <% if (hisdata.current==1) { %>
+                                                <li class="page-item disabled"><a class="page-link">Đầu</a></li>
+                                                <% } else { %>
+                                                    <li><a class="page-link" href="/wallet/history?page=1">Đầu</a></li>
+                                                    <% } %>
+                                                        <% var i=(Number(hisdata.current)> 5 ? Number(hisdata.current) -
+                                                            5 : 1) %>
+                                                            <% if (i !==1) { %>
+                                                                <li class="disabled"><a class="page-link">...</a></li>
+                                                                <% } %>
+                                                                    <% for (; i <=(Number(hisdata.current) + 5) && i
+                                                                        <=hisdata.pages; i++) { %>
+                                                                        <% if (i==hisdata.current) { %>
+                                                                            <li class="page-item active"><a
+                                                                                    class="page-link">
+                                                                                    <%= i %>
+                                                                                </a></li>
+                                                                            <% } else { %>
+                                                                                <li><a class="page-link"
+                                                                                        href="/wallet/history?page=<%= i %>">
+                                                                                        <%= i %>
+                                                                                    </a></li>
+                                                                                <% } %>
+                                                                                    <% if (i==Number(hisdata.current) +
+                                                                                        5 && i < hisdata.pages) { %>
+                                                                                        <li class="page-item disabled">
+                                                                                            <a class="page-link">...</a>
+                                                                                        </li>
+                                                                                        <% } %>
+                                                                                            <% } %>
+                                                                                                <% if
+                                                                                                    (hisdata.current==hisdata.pages)
+                                                                                                    { %>
+                                                                                                    <li
+                                                                                                        class="page-item disabled">
+                                                                                                        <a
+                                                                                                            class="page-link">Cuối</a>
+                                                                                                    </li>
+                                                                                                    <% } else { %>
+                                                                                                        <li><a class="page-link"
+                                                                                                                href="/wallet/history?page=<%= hisdata.pages %>">Cuối</a>
+                                                                                                        </li>
+                                                                                                        <% } %>
+                                        </ul>
+                                    </nav>
+                                    <% } %>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+</div>

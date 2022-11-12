@@ -1,0 +1,141 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <div class="blockPage">
+                    <h3 class="text-uppercase text-info">Đơn hàng: <%-list.cardBuy.transId%></h3>
+                    <div class="blockContent">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4><span class="text-uppercase">Thông tin dịch vụ</span></h4>
+                               
+                                <script src="/assets/js/clipboard.min.js"></script>
+                                <script>
+                                    var clipboard = new ClipboardJS('.copyrow');
+
+                                    clipboard.on('success', function (e) {
+                                        console.log(e);
+
+                                    });
+
+                                    clipboard.on('error', function (e) {
+                                        console.log(e);
+                                    });
+                                </script>
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Mã nạp</th>
+                                            <th>Se-ri</th>
+                                            <th>Hết hạn</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                       
+                                            <% for (var i=0; i < list.cardBuy.data.length; i++) { %>
+                                                <%if(list.cardBuy.data[i].dataok!=null){%>
+                                                    <% for (var iz=0; iz < list.cardBuy.data[i].dataok.cards.length; iz++) { %>
+                                                        <tr>
+                                                        <td><h4><%-i+1%></h4></td>
+                                                        <td>
+                                                            <h4><%-list.cardBuy.data[i].dataok.cards[iz].name%></h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4><%-list.cardBuy.data[i].dataok.cards[iz].code%>
+                                                                <button class="copyrow btn btn-secondary btn-xs"
+                                                                    data-clipboard-text="<%-list.cardBuy.data[i].dataok.cards[iz].code%>" data-toggle="tooltip"
+                                                                    title="Copy">
+                                                                    <i class="fa fa-clone" aria-hidden="true"></i>
+                                                                </button>
+                                                            </h4>
+                                                        </td>
+                                                       
+                                                        <td>
+                                                            <h4><%-list.cardBuy.data[i].dataok.cards[iz].serial%>
+                                                                <button class="copyrow btn btn-secondary btn-xs"
+                                                                    data-clipboard-text="<%-list.cardBuy.data[i].dataok.cards[iz].serial%>" data-toggle="tooltip"
+                                                                    title="Copy">
+                                                                    <i class="fa fa-clone" aria-hidden="true"></i>
+                                                                </button>
+                                                            </h4>
+                                                        </td>
+                                                        <td>
+                                                            <h4>
+                                                                <%-list.cardBuy.data[i].dataok.cards[iz].expired%>
+                                                            </h4>
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+                                                <%}%>                                                                                   
+                                            <%}%>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+                                <br>
+                                <a href="/mua-the/print/<%-list.cardBuy.transId%>">
+                                    <button type="button" class="btn btn-info">In nhiệt</button>
+                                </a>
+
+
+                                
+                                
+                                    
+
+
+
+
+                                <button type="button" class="copyrow btn btn-warning" data-clipboard-text="<%-list.dataClipboard%>">Sao chép toàn bộ
+                                </button>
+                                <a href="/mua-the">
+                                    <button class="btn btn-danger pull-right">Mua hàng tiếp</button>
+                                </a>
+
+                            </div>
+                            <div class="col-md-4">
+                                <h4><span class="text-uppercase">Thông tin đơn hàng</span></h4>
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>Cổng TT:</td>
+                                            <td>
+                                                Wallet_VND
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tổng số tiền:</td>
+                                            <td>
+                                                <strong class="text-success"></strong><%= String(Math.round(list.totalAmount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <td>Thanh toán:</td>
+                                            <td>
+                                                <span class="label label-success">Đã thanh toán</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trạng thái:</td>
+                                            <td>
+                                                <span class="label label-success">Hoàn thành</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngày tạo:</td>
+                                            <td><%= new Date(Date.parse(list.cardBuy.time)).toLocaleString("pt-BR")%></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

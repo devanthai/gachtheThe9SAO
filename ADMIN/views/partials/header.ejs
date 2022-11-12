@@ -1,0 +1,208 @@
+<!-- Page Loader -->
+<div class="page-loader-wrapper">
+    <div class="loader">
+        <div class="preloader">
+            <div class="spinner-layer pl-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <p>Please wait...</p>
+    </div>
+</div>
+
+
+<!-- #END# Page Loader -->
+<!-- Overlay For Sidebars -->
+<div class="overlay"></div>
+<!-- #END# Overlay For Sidebars -->
+<!-- Search Bar -->
+<div class="search-bar">
+    <div class="search-icon">
+        <i class="material-icons">search</i>
+    </div>
+    <input type="text" placeholder="START TYPING...">
+    <div class="close-search">
+        <i class="material-icons">close</i>
+    </div>
+</div>
+<!-- #END# Search Bar -->
+<!-- Top Bar -->
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="navbar-header">
+
+            <a href="javascript:void(0);" class="bars"></a>
+            <a class="navbar-brand" href="/">Admin</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+
+        </div>
+    </div>
+</nav>
+<!-- #Top Bar -->
+<section>
+    <!-- Left Sidebar -->
+    <aside id="leftsidebar" class="sidebar">
+        <!-- Menu -->
+        <div class="menu">
+            <ul class="list">
+                <li class="header">MAIN NAVIGATION</li>
+                <li class="active">
+                    <a href="/">
+                        <!-- <i class="material-icons">home</i> -->
+                        <span>Trang chủ</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <!-- <i class="material-icons">text_fields</i> -->
+                        <span>Quản lý thành viên</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="/member/">Quản lý</a>
+                        </li>
+                        <li>
+                            <a href="/diemeeee">...chưa nghĩ ra</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <!-- <i class="material-icons">text_fields</i> -->
+                        <span>Nạp tiền</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="/deposit/listDepositChuaduyet">Nạp tiền chưa duyệt</a>
+                        </li>
+
+                        <li>
+                            <a href="/deposit/listDepositDaduyet">Nạp tiền đã duyệt</a>
+                        </li>
+                        <li>
+                            <a href="/deposit/listDeposit">Quản lý nạp tiền</a>
+                        </li>
+                        <li>
+                            <a href="/deposit/gatemoney">Cấu hình nạp tiền</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <!-- <i class="material-icons">text_fields</i> -->
+                        <span>Rút tiền</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="/withdraw/listWithdraw">Quản lý rút tiền</a>
+                        </li>
+                        <li>
+                            <a href="/withdraw/chuaduyet">Chưa duyệt</a>
+                        </li>
+                        <li>
+                            <a href="/withdraw/daduyet">Đã duyệt</a>
+                        </li>
+                        <li>
+                            <a href="/withdraw/dahuy">Đã hủy</a>
+                        </li>
+                        <li>
+                            <a href="/withdraw/setting">Cấu hình rút tiền</a>
+                        </li>
+                        <li>
+                            <a href="/withdraw/configAuto">Cấu hình auto</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/setting">
+                        <!-- <i class="material-icons">text_fields</i> -->
+                        <span>Cài đặt website</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a data-toggle="modal" data-target="#modalmk">
+                        <span>Đổi mật khẩu</span>
+                    </a>
+
+                </li>
+            </ul>
+        </div>
+        <!-- Footer -->
+        <div class="legal">
+            <div class="copyright">
+                <a href="javascript:void(0);">Admin</a>
+            </div>
+        </div>
+        <!-- #Footer -->
+    </aside>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="modalmk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Mật khẩu cũ:</label>
+                    <div class="form-line">
+                        <input type="text" class="form-control oldpass" id="recipient-name">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Mật khẩu mới:</label>
+                    <div class="form-line">
+                        <input type="password" class="form-control newpass" id="recipient-name">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Nhập lại Mật khẩu mới:</label>
+                    <div class="form-line">
+
+                        <input type="password" class="form-control repass" id="recipient-name">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="ChangePass()" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     ChangePass = () => {
+        const oldpass = $(".oldpass").val()
+        const password = $(".newpass").val()
+        const repass = $(".repass").val()
+        $.ajax({
+            url: '/login/changepass',
+            type: "POST",
+            dataType: "text",
+            data: { repassword: repass, password: password, oldpassword: oldpass },
+            success: function (res) {
+                if (JSON.parse(res).error == 0) {
+                    alert("Đổi mật khẩu thành công")
+                    $("#modalmk").modal("hide")
+                }
+                else {
+                    alert(JSON.parse(res).msg)
+                }
+            }
+        });
+    }
+</script>

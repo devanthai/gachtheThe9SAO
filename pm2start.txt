@@ -1,0 +1,3 @@
+pm2 start index.js --name web1 --node-args="--expose-gc" -- 3000
+pm2 start index.js --name web2 --node-args="--expose-gc" -- 3001
+pm2 start index.js --name web3 --node-args="--expose-gc" -- 3002

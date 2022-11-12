@@ -1,0 +1,216 @@
+<link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+<div class="block-header">
+    <h2>
+        Quản lý
+    </h2>
+</div>
+
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Quản lý thành viên
+                </h2>
+            </div>
+            <div class="body">
+                <table id="tableeee" class=" table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <thead>
+                        <tr>
+                            <th hidden="true">ID</th>
+                            <th>Tài khoản</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>SDT</th>
+                            <th>Số tiền</th>
+                            <th>Ngày tạo</th>
+
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i=0; i < members.length; i++) { %>
+                            <%if(members[i].uid){%>
+                                <tr>
+
+                                    <td hidden="true">
+                                        <%=members[i].uid._id%>
+                                    </td>
+                                    <td>
+                                        <%=members[i].uid.Username%>
+                                    </td>
+                                    <td>
+                                        <%=members[i].name%>
+                                    </td>
+                                    <td>
+                                        <%=members[i].email%>
+                                    </td>
+                                    <td>
+                                        <%=members[i].phone%>
+                                    </td>
+                                    <td>
+                                        <%=Math.round(members[i].money).toString().replace( /\B(?=(\d{3})+(?!\d))/g, ','
+                                            )%>
+                                    </td>
+                                    <td>
+                                        <%= new Date(Date.parse(members[i].joindate)).toLocaleString("pt-BR")%>
+                                    </td>
+                                    <td>
+                                        <button onclick="truycap('<%=members[i].uid._id%>')"
+                                            class="btn bg-blue  btn-xs waves-effect">Truy cập</button>
+                                        <button onclick="sodu('<%=members[i].uid._id%>',this)"
+                                            class="btn bg-orange  btn-xs waves-effect">Chỉnh số dư</button>
+
+
+                                        <%if(members[i].uid.IsLock){%>
+
+                                            <button onclick="LockAccount('<%=members[i].uid._id%>',this)"
+                                                class="btn bg-green  btn-xs waves-effect">Mở khóa</button>
+
+                                            <%}else{%>
+
+
+                                                <button onclick="LockAccount('<%=members[i].uid._id%>',this)"
+                                                    class="btn bg-red  btn-xs waves-effect">Khóa acc</button>
+                                                <%}%>
+                                                <button onclick="DeleteAccount('<%=members[i].uid._id%>',this)"
+                                                    class="btn bg-red  btn-xs waves-effect">Xóa</button>
+
+
+
+                                    </td>
+                                </tr>
+                                <% } %>
+
+                                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalsetsodu" tabindex="-1" role="dialog" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="defaultModalLabel">Cộng tiền</h4>
+            </div>
+            <div class="modal-body">
+                Chỉnh sửa số dư cho <b class="col-pink" id="taikhoansetsodu"></b>
+                <br>
+                <br>
+                <b>Số tiền:</b>
+                <input id="amountSet" type="number" class="form-control" placeholder="Số tiền">
+                <br>
+                <b>Kiểu số dư:</b>
+                <select id="typeamount" class="form-control show-tick">
+                    <option value="">-- Chọn kiểu --</option>
+                    <option value="1">Nạp tiền</option>
+                    <option value="2">Trừ tiền</option>
+                </select>
+                <b>Thực hiện:</b>
+                <br>
+                <button type="button" onclick="SetAmount()" class="btn btn-danger waves-effect ">Thực hiện</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    SetAmount = () => {
+        const username = $("#taikhoansetsodu").text()
+        const amountSet = $("#amountSet").val()
+        const typeamount = $("#typeamount").val()
+        $.ajax({
+            type: "POST",
+            url: "/member/setAmount",
+            datatype: 'json',
+            data: {
+                username: username,
+                amountSet: amountSet,
+                typeamount: typeamount
+            },
+            success: (data) => {
+                alert(data.message)
+                $("#taikhoansetsodu").text("")
+                $("#amountSet").val("")
+                $("#typeamount").val("")
+                $("#modalsetsodu").modal("hide")
+            }
+        })
+    }
+    sodu = (id, doc) => {
+        doc = doc.parentElement.parentNode
+        taikhoan = doc.children[1].innerText
+
+        $("#taikhoansetsodu").text(taikhoan)
+        $("#modalsetsodu").modal()
+
+
+    }
+    truycap = (id) => {
+        $.ajax({
+            type: "POST",
+            url: "/member/login",
+            datatype: 'json',
+            data: {
+                uid: id
+            },
+            success: (data) => {
+                if (data.error == false) {
+                    window.open('https://the9sao.com/login/' + data.message, '_blank')
+                }
+            }
+        })
+    }
+    LockAccount = (id) => {
+        $.ajax({
+            type: "POST",
+            url: "/member/LockUser",
+            datatype: 'json',
+            data: {
+                uid: id
+            },
+            success: (data) => {
+                alert(data.message)
+                if (data.error == false) {
+
+                }
+            }
+        })
+    }
+    DeleteAccount = (id) => {
+        if(!confirm("Bạn có muốn xóa tài khoản này không ?"))
+        {
+            return
+        }
+        $.ajax({
+            type: "POST",
+            url: "/member/DeleteAccount",
+            datatype: 'json',
+            data: {
+                uid: id
+            },
+            success: (data) => {
+                alert(data.message)
+                if (data.error == false) {
+
+                }
+            }
+        })
+    }
+</script>
+<script src="/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script src="/js/pages/tables/jquery-datatable.js"></script>

@@ -1,0 +1,34 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-9">
+            <div class="row mainpage-wrapper">
+                <h4 style="margin-top: 40px"><span class="text-uppercase">Bảo mật tài khoản</span></h4>
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <div class="blockContent">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="box-content table-responsive">
+                                <form method="POST" action="/account/active/Mkc2">
+                                    <h3 class="text-uppercase text-center">Xác thực</h3>
+                                    <span class="small text-center" style="display: block">Để kích hoạt được thao tác
+                                        vui lòng xác thực danh tính của bạn</span>
+                                    <br>
+                                    <div class="form-group">
+                                        <label>Mã xác thực</label>
+                                        <div><input type="password" class="form-control" name="secret"
+                                                placeholder="Nhập mật khẩu cấp 2"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button class="btn btn-warning" style="width: 100%">Thực hiện</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

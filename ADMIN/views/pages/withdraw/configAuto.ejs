@@ -1,0 +1,161 @@
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Cấu hình auto rút tiền
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+
+
+                            <div class="col-sm-12">
+                                <h2>Momo</h2>
+                                <h2 class="card-inside-title">isRunning</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="isRunningMomo" value="<%-setting.autoWithdraw.Momo.isRunning%>"
+                                            type="text" class="form-control" placeholder="isRunning">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">urlApi</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="urlApiMomo" value="<%-setting.autoWithdraw.Momo.urlApi%>" type="text"
+                                            class="form-control" placeholder="urlApiMomo">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+
+                                <h2>TheSieure.com</h2>
+
+                                <h2 class="card-inside-title">isRunning</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="isRunningTsr" value="<%-setting.autoWithdraw.Tsr.isRunning%>"
+                                            type="text" class="form-control" placeholder="isRunningTsr">
+                                    </div>
+                                </div>
+
+                                <h2 class="card-inside-title">Username</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="usernameTsr" value="<%-setting.autoWithdraw.Tsr.username%>"
+                                            type="text" class="form-control" placeholder="usernameTsr">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Password</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="passwordTsr" value="<%-setting.autoWithdraw.Tsr.password%>"
+                                            type="text" class="form-control" placeholder="passwordTsr">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+
+                                <h2>ACB auto</h2>
+
+                                <h2 class="card-inside-title">url Api</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="Acblinkapi" value="<%-setting.autoWithdraw.Acb.linkapi%>" type="text"
+                                            class="form-control" placeholder="linkapi">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">accountNumber</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="AcbaccountNumber" value="<%-setting.autoWithdraw.Acb.accountNumber%>"
+                                            type="text" class="form-control" placeholder="accountNumber">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Username</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="Acbusername" value="<%-setting.autoWithdraw.Acb.username%>"
+                                            type="text" class="form-control" placeholder="usernameTsr">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Password</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="Acbpassword" value="<%-setting.autoWithdraw.Acb.password%>"
+                                            type="text" class="form-control" placeholder="passwordTsr">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">isRunning</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="AcbisRunning" value="<%-setting.autoWithdraw.Acb.isRunning%>"
+                                            type="text" class="form-control" placeholder="isRunningTsr">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-12">
+                                <button type="button" onclick="saveAutoDeposit()"
+                                    class="btn btn-primary m-t-15 waves-effect">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    saveAutoDeposit = () => {
+        const urlApiMomo = $("#urlApiMomo").val()
+        const isRunningMomo = $("#isRunningMomo").val()
+
+        const isRunningTsr = $("#isRunningTsr").val()
+        const usernameTsr = $("#usernameTsr").val()
+        const passwordTsr = $("#passwordTsr").val()
+
+
+        const Acblinkapi = $("#Acblinkapi").val()
+        const AcbaccountNumber = $("#AcbaccountNumber").val()
+        const Acbusername = $("#Acbusername").val()
+        const Acbpassword = $("#Acbpassword").val()
+        const AcbisRunning = $("#AcbisRunning").val()
+
+
+        var autoWithdraw = {
+            Momo: {
+                isRunning: isRunningMomo,
+                urlApi: urlApiMomo,
+            },
+            Tsr: {
+                isRunning: isRunningTsr,
+                username: usernameTsr,
+                password: passwordTsr
+            },
+            Acb: {
+                linkapi: Acblinkapi,
+                username: Acbusername,
+                password: Acbpassword,
+                accountNumber: AcbaccountNumber,
+                isRunning: AcbisRunning
+            },
+        }
+        $.ajax({
+            url: "/withdraw/saveWithdrawAuto",
+            type: "post",
+            data: {
+                autoWithdraw: autoWithdraw
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+
+</script>

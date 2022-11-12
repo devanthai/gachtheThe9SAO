@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin T9S</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet"
+        type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
+    <!-- Bootstrap Core Css -->
+    <link href="/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+
+    <!-- Waves Effect Css -->
+    <link href="/plugins/node-waves/waves.css" rel="stylesheet" />
+
+    <!-- Bootstrap Material Datetime Picker Css -->
+    <link href="/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css"
+        rel="stylesheet" />
+
+    <!-- Bootstrap DatePicker Css -->
+    <link href="/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+
+    <!-- Wait Me Css -->
+    <link href="/plugins/waitme/waitMe.css" rel="stylesheet" />
+
+    <!-- Bootstrap Select Css -->
+    <link href="/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" />
+
+    <!-- Animation Css -->
+    <link href="/plugins/animate-css/animate.css" rel="stylesheet" />
+
+    <!-- Custom Css -->
+    <link href="/css/style.css" rel="stylesheet">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="/css/themes/all-themes.css" rel="stylesheet" />
+
+    <!-- Jquery Core Js -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+
+    <link rel="shortcut icon" href="/images/icon.png">
+
+</head>
+
+<body class="theme-red">
+    <%- include('partials/header'); %>
+        <section class="content">
+            <div class="container-fluid">
+                <%- include(page); %>
+            </div>
+        </section>
+        <%- include('partials/footer'); %>
+</body>
+
+</html>

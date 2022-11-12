@@ -1,0 +1,200 @@
+<div class="section">
+    <div class="container">
+     
+        <div class="fullColumn">
+            <br>
+            <div class="blockContent">
+                <div class="tabpage tab">
+                    <div class="tab-content col-md-12 p-0">
+                        <%if(typeof message !="undefined" && message){%>
+                            <%-message%>
+                                <%}%>
+                        <section class="main">
+                            <div class="blockContent">
+                                <div class=" right-seperate">
+                                    <div class="card-game-panel">
+                                        <h2 class="text-center" style="font-size: 30px">Đổi thẻ cào</h2>
+                                        <p>
+                                        <p>- Thẻ Viettel, Zing cần điền đúng seri.&nbsp;</p>
+
+                                        <p>- Sai mệnh giá -50%. Hướng dẫn tích hợp API gạch thẻ tự động cho
+                                            Shop: <a href="/merchant/list">tại đây</a>
+                                        </p>
+                                        <p><a href="/doithecao"><strong>Lịch sử nạp thẻ
+                                                    tại đây</strong></a>.
+                                        </p>
+                                        </p>
+                                        <div class="form-frontpage form-sm" style="margin-top: 20px;">
+                                            <div class="row-group">
+                                                <form action="/doithecao" method="POST">
+                                                    <div id="list-taythecham">
+                                                        <div class="irow row row-group" style="margin-bottom: 10px;">
+                                                            <div class="col-sm-3 select">
+                                                                <select id="telcoSelect" class="telco form-control"
+                                                                    name="telco[]" data-row="1" required autofocus>
+
+                                                                    <% for (var i=0; i < fees.length; i++) { %>
+                                                                        <option value="<%-fees[i]._id%>" data-send-value="1"><%=fees[i].title%> (<%-fees[i].maxfee%>)</option>
+                                                                    <%}%>
+
+
+                                                                  
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <input name="code[]" data-row="1" class="form-control"
+                                                                    type="text" placeholder="Mã thẻ" required autofocus>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <input name="serial[]" data-row="1" class="form-control"
+                                                                    type="text" placeholder="Mã seri" required
+                                                                    autofocus>
+                                                            </div>
+                                                            <div class="col-sm-2">
+                                                                <% for (var i=0; i < fees.length; i++) { %>
+                                                                    <%var dataamount =""%>
+                                                                    <% for (var iz=0; iz < fees[i].list.length; iz++) { %>
+                                                                        <% dataamount += fees[i].list[iz].value+ (iz<fees[i].list.length-1?",":"") %>
+                                                                    <%}%>
+                                                                    <input type="hidden" class="defaultAmount"
+                                                                    data-telco="<%=fees[i]._id%>"
+                                                                    data-amount="<%=dataamount%>">
+                                                                <%}%>
+                                                                <select id="lsAmount" name="amount[]" data-row="1"
+                                                                    class="charging-amount form-control">
+                                                                    <option value="">-- Mệnh giá --</option>
+                                                                    <% for (var iz=0; iz < fees[0].list.length; iz++) { %>
+                                                                        <option value="<%=fees[0].list[iz].value%>"><%= String(Math.round(fees[0].list[iz].value)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> đ</option>
+                                                                    <%}%>                                                                                   
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-sm-1">
+                                                                <div class="pull-right">
+                                                                    <button id="addRow" class="btn btn-success btn-sm"
+                                                                        style="float:left"><i class="fa fa-plus-circle"
+                                                                            aria-hidden="true"></i>Thêm
+                                                                    </button>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clear-fix"></div>
+                                                    <div align="center" class="col-md-12">
+
+                                                        <div class="clearfix"></div>
+                                                        <button type="submit" class="btn btn-warning btn-lg"><i
+                                                                class="fa fa-upload" aria-hidden="true"></i>
+                                                            Gửi thẻ cào
+                                                        </button>
+
+                                                    </div>
+                                                  
+                                                </form>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+
+                                        <div class="tabpage" id="bang-phi" style="margin-top: 20px;">
+                                            <h4>Bảng phí đổi thẻ cào</h4>
+                                            <ul class="nav nav-tabs">
+
+
+                                                <% for (var i=0; i < fees.length; i++) { %>
+                                                    <%if(i==0){%>
+                                                        <li class="active"><a data-toggle="tab" href="#<%=fees[i]._id%>">
+                                                            <span class="title"><%=fees[i].title%>(<%-fees[i].maxfee%>)</span>
+                                                            </a aria-expanded="true"></li>
+                                                        <%}else{%>
+                                                            <li><a data-toggle="tab" href="#<%=fees[i]._id%>">
+                                                                <span class="title"> <%=fees[i].title%>(<%-fees[i].maxfee%>)</span>
+                                                                </a aria-expanded="false"></li>
+                                                            <%}%>
+                                                <% } %>
+
+                                            </ul>
+
+                                            <div class="tab-content" style="padding-top: 20px;">
+
+                                                <% for (var i=0; i < fees.length; i++) { %>
+                                                    <div id="<%=fees[i]._id%>" class="table-responsive tab-pane fadess <%=(i==0?'in active':'')%>">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <% for (var iz=-1; iz < fees[i].list.length; iz++) { %>
+                                                                        <%if(iz==-1){%>
+                                                                            <!-- <th class="text-center">Nhóm thành viên</th> -->
+                                                                        <%}else{%>
+                                                                            <th class="text-center">Thẻ <%= String(Math.round(fees[i].list[iz].value)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</th>
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody class="text-center">
+                                                                <tr>
+                                                                    
+                                                                    <% for (var iz=-1; iz < fees[i].list.length; iz++) { %>
+                                                                        <%if(iz==-1){%>
+                                                                            <!-- <th class="text-center">Thành viên</th> -->
+                                                                        <%}else{%>
+                                                                            <td><%=fees[i].list[iz].fees%>%</td>
+                                                                        <% } %>
+                                                                    <% } %>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                        <div id="dataRow" class="hidden">
+                            <div class="irow row row-group " data-row="{timestamp}" style="margin-bottom: 10px;">
+                                <div class="col-sm-3 select">
+                                    <select class="telco form-control" name="telco[]" data-row="{timestamp}" required
+                                        autofocus>
+                                        <% for (var i=0; i < fees.length; i++) { %>
+                                            <option value="<%-fees[i]._id%>" data-send-value="1"><%=fees[i].title%> (<%-fees[i].maxfee%>)</option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input name="code[]" data-row="{timestamp}" class="form-control" type="text"
+                                        placeholder="Mã thẻ" required autofocus>
+                                </div>
+                                <div class="col-sm-3">
+                                    <input name="serial[]" data-row="{timestamp}" class="form-control" type="text"
+                                        placeholder="Mã seri" required autofocus>
+                                </div>
+                                <div class="col-sm-2">
+
+                                   
+
+                                    <select name="amount[]" data-row="{timestamp}" class="charging-amount form-control">
+                                        <option value="">-- Mệnh giá --</option>
+                                        <% for (var iz=0; iz < fees[0].list.length; iz++) { %>
+                                            <option value="<%=fees[0].list[iz].value%>"><%= String(Math.round(fees[0].list[iz].value)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> đ</option>
+                                        <%}%>
+                                    </select>
+                                </div>
+                                <div class="col-sm-1">
+                                    <div class="pull-right">
+                                        <button type="button" class="btn btn-danger btn-sm act_del"
+                                            data-row="{timestamp}">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

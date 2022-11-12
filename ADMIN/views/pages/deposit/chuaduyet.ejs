@@ -1,0 +1,113 @@
+<link href="/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+<div class="block-header">
+    <h2>
+        Lịch sử nạp tiền
+    </h2>
+</div>
+
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="body">
+                <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                    <thead>
+                        <tr>
+                            <th hidden="true">ID</th>
+                            <th>Mã gd</th>
+                            <th>Tài khoản</th>
+                            <th>Số tiền</th>
+                            <th>Cổng nạp</th>
+                            <th>Nội dung</th>
+                            <th>Trạng thái</th>
+                            <th>Thời gian</th>
+                            <th>Chức năng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for (var i=0; i < listDeposit.length; i++) { %>
+                            <tr>
+                                <td hidden="true">
+                                    <%=listDeposit[i]._id%>
+                                </td>
+                                <td>
+                                    <%=listDeposit[i].transid%>
+                                </td>
+                                <td>
+                                    <%=listDeposit[i].username%>
+                                </td>
+                                <td>
+                                    <%= String(Math.round(listDeposit[i].amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>
+                                </td>
+                                <td>
+                                    <%=listDeposit[i].gate%>
+                                </td>
+                                <td>
+                                    <%=listDeposit[i].content%>
+                                </td>
+                                <td>
+
+
+                                    <%if(listDeposit[i].status==0){%>
+                                        <span class="label label-default">Chờ thanh toán</span>
+
+                                        <%}else if(listDeposit[i].status==1){%>
+                                            <span class="label label-success">Thành công</span>
+                                            <%}else if(listDeposit[i].status==2){%>
+                                                <span class="label label-danger">Đã hủy</span>
+                                                <%}%>
+
+                                </td>
+
+                                <td>
+                                    <%= new Date(Date.parse(listDeposit[i].time)).toLocaleString()%>
+                                </td>
+                                <td>
+                                    <%if(listDeposit[i].status==0){%>
+                                    
+                                    <button onclick="setSucsess('<%=listDeposit[i]._id%>',this)"
+                                        class="btn bg-green  btn-xs waves-effect">Thành công(cộng tiền)</button>
+                                        <%}%>
+
+                                </td>
+                            </tr>
+                            <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setSucsess = (id,doc) => {
+        if (!confirm("Bạn có chắc muốn set thành công và cộng tiền cho tk này ?")) {
+            return;
+        }
+        $.ajax({
+            type: "POST",
+            url: "/deposit/setsuccessDeposit",
+            datatype: 'json',   
+            data: {
+                id: id
+            },
+            success: (data) => {
+                if(data.error==0)
+                {
+                    doc.parentElement.parentNode.children[6].innerHTML = '<span class="label label-success">Thành công</span>'
+                    doc.parentElement.parentNode.children[8].innerHTML = ''
+                }
+                alert(data.message)
+            }
+        })
+    }
+</script>
+<script src="/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+<script src="/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script src="/js/pages/tables/jquery-datatable.js"></script>

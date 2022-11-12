@@ -1,0 +1,71 @@
+<div class="block-header">
+    <h2>Cấu hình rút tiền</h2>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Cấu hình rút tiền
+
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+
+                                <h2 class="card-inside-title">Tổng hạn mức ngày</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input value="<%= setting.withdraw.totalday %>" id="hanmucngay" type="text"
+                                            class="form-control" placeholder="Tổng hạn mức ngày">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Số tiền rút tối thiểu</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="minin" value="<%= setting.withdraw.min %>" type="text"
+                                            class="form-control" placeholder="Số tiền rút tối thiểu">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Số tiền rút tối đa</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="maxin" value="<%= setting.withdraw.max %>" type="text"
+                                            class="form-control" placeholder="Số tiền nạp tối đa">
+                                    </div>
+                                </div>
+                                <button type="button" onclick="SaveSetting()" class="btn btn-danger waves-effect">Lưu
+                                    lại</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    SaveSetting = () => {
+        const hanmucngay = $("#hanmucngay").val()
+        const minin = $("#minin").val()
+        const maxin = $("#maxin").val()
+        $.ajax({
+            url: "/withdraw/setting/savesetting",
+            type: "post",
+            data: {
+                hanmucngay: hanmucngay,
+                min: minin,
+                max: maxin
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    
+</script>

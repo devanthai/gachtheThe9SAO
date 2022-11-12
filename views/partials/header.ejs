@@ -1,0 +1,74 @@
+<div class="page homepage">
+    <a href="https://the9sao.com/logo" class="animated-arrow right-menu-toggle off-menu mobile-user-icon">
+        <button type="button" class="btn btn-user btn-sm outline"><i class="fa fa-user"></i><%-(typeof user =="undefined" || user==null?"Tài khoản":userInfo.name)%></button>
+    </a>
+
+    <%- include('menuUserLeft'); %>
+
+    <header class="header-top">
+        <div class="container">
+            <div class="logo">
+                <a href="/">
+                    <img src="https://the9sao.com/assets/images/logo.png" alt="" />
+                </a>
+            </div>
+            <style>
+                @media (min-width: 768px) {
+                    .navigation ul>li:hover>ul {
+                        border-top: 2px solid #004b7f !important;
+                    }
+
+                    a.hover_item:hover {
+                        color: #f1f1f1;
+                        background: #004b7f !important;
+                    }
+
+                    .navigation>ul>li>a::before,
+                    .navigation>ul>li>span::before {
+                        background: #004b7f !important;
+                    }
+
+                    .navigation ul>li ul:before {
+                        border-bottom: 4px dashed #004b7f !important;
+                    }
+                }
+            </style>
+
+            <div class="navigation nav-left" style="padding-top: 15px">
+                <ul>
+                    <li class="mb-md-3">
+                        <a href="/mua-the" style="color: #004b7f">MUA THẺ CÀO</a>
+                    </li>
+                    <li class="mb-md-3">
+                        <a href="/doithecao" style="color: #004b7f">NẠP THẺ CÀO</a>
+                    </li>
+                    <li class="mb-md-3">
+                        <a href="/wallet/transfer" style="color: #004b7f">CHUYỂN TIỀN</a>
+                    </li>
+                    <li class="mb-md-3">
+                        <a href="/deposit" style="color: #004b7f">NẠP TIỀN</a>
+                    </li>
+                    <li class="mb-md-3">
+                        <a href="/withdraw" style="color: #004b7f">RÚT TIỀN</a>
+                    </li>
+                    <li class="mb-md-3">
+                        <a href="/wallet/history" style="color: #004b7f">LỊCH SỬ</a>
+                    </li>
+                    <li class="mb-md-3">
+                        <a href="/merchant/list" style="color: #004b7f">Kết nối API</a>
+                    </li>
+                </ul>
+            </div>
+            <%if(typeof user =="undefined" ||  user==null){%>
+            <span class="pull-right user-header" style="padding-top: 15px">
+                <a href="/auth/register" class="btn btn-third">
+                    <i class="icon ion-android-person"></i> Đăng ký
+                </a>
+                <a href="/auth/login" class="btn btn-second" style="background: #004b7f;border-color: #004b7f;">
+                    <i class="fa ion ion-android-unlock"></i> Đăng nhập </a>
+            </span>
+            <%}else{%>
+                <%- include('menuRight'); %>
+            <%}%>
+        </div>
+    </header>

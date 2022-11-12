@@ -1,0 +1,54 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <strong class="text-danger">Lưu ý: Để bảo mật tài khoản, bạn nên bật 1 phương pháp bảo vệ bên
+                    dưới.</strong>
+                <h4 style="margin-top: 40px"><span class="text-uppercase">Bảo mật tài khoản</span></h4>
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <div class="blockContent">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="box-content">
+                                <table class="table table-condensed" style="margin-bottom: 0px">
+                                    <tbody>
+                                        <!-- <tr class="ads">
+                                            <td style="width: 10%;padding-right: 0px!important;"><img
+                                                    src="https://doithe.vn/assets/default/images/GoogleAuth.png"></td>
+                                            <td style="padding-left: 10px!important;width: 80%"><span
+                                                    style="font-size: 16px"><strong>Bảo mật bằng GoogleAuth
+                                                    </strong></span><br>
+                                                <span class="small">Mã xác thực sẽ hiện trên App điện thoại của bạn (Mức
+                                                    an toàn cao)</span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <a class="btn btn-default" style="display: block"
+                                                    href="https://doithe.vn/active/security/GoogleAuth">Đang tắt</a>
+                                            </td>
+                                        </tr> -->
+                                        <tr class="ads">
+                                            <td style="width: 10%;padding-right: 0px!important;"><img
+                                                    src="/assets/images/Mkc2.png"></td>
+                                            <td style="padding-left: 10px!important;width: 80%"><span
+                                                    style="font-size: 16px"><strong>Bảo mật bằng mật khẩu cấp 2
+                                                    </strong></span><br>
+                                                <span class="small">Bạn sẽ nhập mật khẩu cấp 2 mỗi khi có giao dịch (Mức
+                                                    an toàn thấp)</span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <a class="btn btn-<%-userInfo.isActivePassLevel2?"success":"default"%>" style="display: block"
+                                                    href="/account/active/Mkc2"><%-userInfo.isActivePassLevel2?"Đang bật":"Đang tắt"%></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

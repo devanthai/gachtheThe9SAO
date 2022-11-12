@@ -1,0 +1,60 @@
+<html><head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>In đơn hàng</title>
+
+    <style>
+
+        @media  print {
+            body *, #main * { display:none; }
+            #main, #main #printarea, #main #printarea * { display:block; }
+        }
+        table {
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+
+    </style>
+</head>
+<body>
+<div id="main">
+<div id="printarea">
+    <h3><strong>THÔNG TIN MÃ THẺ</strong></h3>
+    Mã đơn: <%-list.cardBuy.transId%>
+    <br>
+    <br>
+                #  | Tên sản phẩm  |  Mã nạp thẻ  |   Serial  |  Ngày hết hạn <br>
+        
+
+
+
+            <% for (var i=0; i < list.cardBuy.data.length; i++) { %>
+                <%if(list.cardBuy.data[i].dataok!=null){%>
+                    <% for (var iz=0; iz < list.cardBuy.data[i].dataok.cards.length; iz++) { %>
+
+                        <%-i+1%>  | <%-list.cardBuy.data[i].dataok.cards[iz].name%>  |  <%-list.cardBuy.data[i].dataok.cards[iz].code%>   |   <%-list.cardBuy.data[i].dataok.cards[iz].serial%>   |   <%-list.cardBuy.data[i].dataok.cards[iz].expired%><br>
+
+                    <%}%>
+                <%}%>                                                                                   
+            <%}%>
+
+
+                    </div>
+</div>
+    <br>
+    <button onclick="myFunction()">In mã thẻ</button>
+
+    <script>
+        function myFunction() {
+            window.print();
+        }
+    </script>
+
+
+
+</body></html>

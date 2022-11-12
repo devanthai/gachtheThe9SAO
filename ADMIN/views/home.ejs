@@ -1,0 +1,353 @@
+<link href="./plugins/nestable/jquery-nestable.css" rel="stylesheet" />
+<script src="./plugins/nestable/jquery.nestable.js"></script>
+<script src="/js/pages/ui/sortable-nestable.js"></script>
+
+
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+        <div class="header">
+            <h2>
+                Phí đổi thẻ
+
+            </h2>
+
+        </div>
+        <div class="body">
+            <ul class="nav nav-tabs">
+                <% for (var i=0; i < fees.length; i++) { %>
+                    <%if(i==0){%>
+                        <li class="active"><a data-toggle="tab" href="#<%=fees[i]._id%>">
+                                <%=fees[i]._id%>
+                            </a></li>
+                        <%}else{%>
+                            <li><a data-toggle="tab" href="#<%=fees[i]._id%>">
+                                    <%=fees[i]._id%>
+                                </a></li>
+                            <%}%>
+                                <% } %>
+            </ul>
+            <div class="tab-content">
+
+                <% for (var i=0; i < fees.length; i++) { %>
+                    <div id="<%=fees[i]._id%>" class="tab-pane fade <%=(i==0?'in active':'')%>">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <% for (var iz=0; iz < fees[i].list.length; iz++) { %>
+                                        <th class="text-center">Thẻ <%=
+                                                String(Math.round(fees[i].list[iz].value)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                đ</th>
+                                        <% } %>
+                                        <th class="text-center">
+                                            Chức năng
+                                        </th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-center">
+                                <tr>
+                                    <% for (var iz=0; iz < fees[i].list.length; iz++) { %>
+
+
+                                        <td>
+                                            <%=fees[i].list[iz].fees%>
+                                        </td>
+                                        <% } %>
+                                        <th class="text-center">
+                                            <button class="btn btn-xs bg-red waves-effect collapsed" type="button">
+                                                Tình đầu là tình dang dở
+                                        </button>
+                                            
+                                        </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <% } %>
+
+
+            </div>
+            <button class="btn bg-cyan waves-effect m-b-15 collapsed" type="button" data-toggle="collapse"
+            data-target="#thutufee" aria-expanded="false" aria-controls="thutufee">
+            Sắp thứ tự hiển thị
+        </button>
+            <a href="/getFeeCard" onclick="return confirm('Bạn có chắc muốn xóa giá cũ và cập nhật lại bảng giá mới?');" type="button" class="btn bg-red waves-effect m-b-15 collapsed">Lấy bảng phí từ
+                api (Reset thứ tự)</a>
+
+                <a href="/getFeeCard?sort=false" onclick="return confirm('Bạn có chắc muốn xóa giá cũ và cập nhật lại bảng giá mới?');" type="button" class="btn bg-red waves-effect m-b-15 collapsed">Lấy bảng phí từ
+                    api không Reset thứ tự</a>
+           
+          
+
+
+        <div class="collapse" id="thutufee" aria-expanded="false" style="height: 0px;">
+            <h3>Sắp xếp thứ tự hiển thị</h3>
+            <div class="clearfix m-b-20">
+                <div class="dd">
+                    <ol class="dd-list">
+                        <% for (var i=0; i < setting.sortFeeCard.length; i++) { %>
+                            <li class="dd-item" data-name="<%=setting.sortFeeCard[i]%>">
+                                <div class="dd-handle">
+                                    <%=setting.sortFeeCard[i]%>
+                                </div>
+                            </li>
+                            <% } %>
+                    </ol>
+                </div>
+            </div>
+            <a onclick="saveSortFeeCard()" type="button" class="btn bg-red waves-effect m-b-15 collapsed">Lưu sắp
+                xếp</a>
+            <div style="display: none">
+                <b>Output JSON</b>
+                <textarea id="listFeeSort" cols="30" rows="3" class="form-control no-resize"
+                    readonly><%-listsort%></textarea>
+            </div>
+        </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+        <div class="header">
+            <h2>
+                Mua thẻ cào
+            </h2>
+        </div>
+        <div class="body">
+           
+
+            <button class="btn bg-cyan waves-effect m-b-15 collapsed" type="button" data-toggle="collapse"
+                data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Xem bảng phí
+            </button>
+            <button class="btn bg-cyan waves-effect m-b-15 collapsed" type="button" data-toggle="collapse"
+                data-target="#thutubuycard" aria-expanded="false" aria-controls="thutubuycard">
+                Sắp thứ tự hiển thị
+            </button>
+            <a href="/getFeeBuyCard" onclick="return confirm('Bạn có chắc muốn xóa giá cũ và cập nhật lại bảng giá mới?');" class="btn bg-red waves-effect m-b-15 collapsed" type="button" >Lấy bảng phí mua thẻ từ api (Reset thứ tự)</a>
+            <a href="/getFeeBuyCard?sort=false" onclick="return confirm('Bạn có chắc muốn xóa giá cũ và cập nhật lại bảng giá mới?');" type="button" class="btn bg-red waves-effect m-b-15 collapsed">Lấy bảng phí mua thẻ từ
+                api không Reset thứ tự</a>
+
+
+
+            <div class="collapse" id="collapseExample" aria-expanded="false" style="height: 0px;">
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-bordered table-condensed" style="margin-top: 20px">
+                        <thead>
+                            <tr>
+                                <th>Nhà cung cấp</th>
+                                <th>Loại thẻ</th>
+                                <th>Value / Price</th>
+                                <th>Phí</th>
+                                <th>Loại</th>
+                                <th>Chức năng</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+
+                            <% for (let i=0; i < cardBuyFees.length; i++) { %>
+
+                                
+                                <% for (let iz=0;iz < cardBuyFees[i].card[0].items.length; iz++) { %>
+
+
+                                    <tr>
+                                        <%if(iz==0){%>
+                                            <td>
+                                                <strong class="col-red">
+                                                    <%- cardBuyFees[i].card[0].name %>
+                                                </strong>
+                                            </td>
+                                            <%}else{%>
+
+                                                <td>
+                                                   
+                                                </td>
+
+                                                <%}%>
+
+
+                                                <td>
+                                                    <%- cardBuyFees[i].card[0].name %>
+                                                        <%-
+                                                            String(Math.round(cardBuyFees[i].card[0].items[iz].value)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                            %>đ
+                                                </td>
+                                                <td>
+                                                    
+                                                    <%- String(Math.round(cardBuyFees[i].card[0].items[iz].value)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>
+
+                                                        <%- String(Math.round(cardBuyFees[i].card[0].items[iz].price)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                            
+                                                </td>
+
+                                                <td class=""><input value="<%-cardBuyFees[i].card[0].items[iz].discount%>" type="text"> </td>
+
+                                                <%if(iz==0){%>
+                                                    <td class=""><input value="<%-cardBuyFees[i].type%>" type="text"> </td>
+                                                <%}else{%>
+                                                    <td class=""><%-cardBuyFees[i].type%></td>
+                                                <%}%>
+
+
+
+
+
+                                                <td class="">
+                                                    <button onclick="EditCardBuy('<%-cardBuyFees[i].card[0].items[iz].id%>',this)" class="btn btn-xs  bg-cyan waves-effect collapsed" type="button">Chỉnh sửa</button>
+                                                    <button onclick="DeleteCardBuy('<%-cardBuyFees[i].card[0].items[iz].id%>',this)" class="btn btn-xs  bg-red waves-effect collapsed" type="button">Xóa</button>
+                                                    
+                                                </td>
+
+                                    </tr>
+
+
+
+                                    <% } %>
+                                   <thead>
+                                    <tr>
+                                        <th>Nhà cung cấp</th>
+                                        <th>Loại thẻ</th>
+                                        <th>Phí</th>
+                                        <th>Loại</th>
+                                        <th>Chức năng</th>
+        
+                                    </tr>
+                                </thead>
+
+                                        <% } %>
+                                        
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+            <div class="collapse" id="thutubuycard" aria-expanded="false" style="height: 0px;">
+                <h3>Sắp xếp thứ tự hiển thị</h3>
+
+                <div class="clearfix m-b-20">
+                    <div class="dd">
+                        <ol class="dd-list">
+                            <% for (var i=0; i < setting.sortBuyCard.length; i++) { %>
+                                <li class="dd-item" data-name="<%=setting.sortBuyCard[i]%>">
+                                    <div class="dd-handle">
+                                        <%=setting.sortBuyCard[i]%>
+                                    </div>
+                                </li>
+                                <% } %>
+                        </ol>
+                    </div>
+                </div>
+                <div style="display: none">
+                    <b>Output JSON</b>
+                    <textarea id="listBuyCard" cols="30" rows="3" class="form-control no-resize"
+                        readonly><%-listsortcardbuy%></textarea>
+                </div>
+                <button class="btn bg-cyan waves-effect m-b-15 collapsed" type="button" onclick="saveSortBuyCard()">
+                Lưu lại
+            </button>
+
+            </div>
+
+
+
+           
+            <br>
+        </div>
+    </div>
+</div>
+<script>
+    DeleteCardBuy = (id,doc) => {
+        doc= doc.parentElement.parentNode
+        if(!confirm("Bạn có chắc chắn muốn xóa "+doc.children[1].innerText))
+        {
+            return
+        }
+        $.ajax({
+            url: "/setting/deleteBuyCard",
+            type: "post",
+            data: {
+                id:id
+            },
+            success: function (result) {
+               
+                alert(result.message)
+                if(result.error==0)
+                {
+                    doc.remove()
+                }
+            }
+        });
+
+
+
+    }
+    EditCardBuy = (id,doc) => {
+        doc= doc.parentElement.parentNode
+        var loai = undefined
+        try
+        {
+            loai = doc.children[4].children[0].value
+        }
+        catch{}
+        
+        fee = doc.children[3].children[0].value
+
+        $.ajax({
+            url: "/setting/editBuyCard",
+            type: "post",
+            data: {
+                id:id,
+                loai: loai,
+                fee:fee
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    saveSortFeeCard = () => {
+        const listFeeSort = $("#listFeeSort").val()
+        $.ajax({
+            url: "/setting/saveListsort",
+            type: "post",
+            data: {
+                listFeeSort: listFeeSort
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    saveSortBuyCard = () => {
+        const listFeeSort = $("#listBuyCard").val()
+        $.ajax({
+            url: "/setting/saveListBuyCard",
+            type: "post",
+            data: {
+                listFeeSort: listFeeSort
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+</script>
+
+<script src="/plugins/editable-table/mindmup-editabletable.js"></script>
+
+<script src="/js/pages/tables/editable-table.js"></script>

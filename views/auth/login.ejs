@@ -1,0 +1,113 @@
+<div class="heading-page">
+    <div class="container">
+        <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="/"><span itemprop="name">Trang chủ</span></a>
+                <span itemprop="position" content="1"></span>
+            </li>
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="/auth/login"><span itemprop="name">Đăng nhập</span></a>
+                <span itemprop="position" content="2"></span>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+
+                                <%if(typeof message !="undefined" && message){%>
+                                    <%-message%>
+                                        <%}%>
+
+
+                                            <div class="card-header">
+                                                <h4>Đăng nhập tài khoản</h4>
+                                            </div>
+
+                                            <div class="card-body">
+
+                                                <form method="POST" action="/auth/login" aria-label="Đăng nhập">
+
+                                                    <div class="form-group row">
+                                                        <label for="email"
+                                                            class="col-sm-4 col-form-label text-md-right">Tên đăng
+                                                            nhập</label>
+
+                                                        <div class="col-md-6">
+                                                            <input id="phoneOrEmail" type="text" class="form-control"
+                                                                name="phoneOrEmail" value="" required="" autofocus=""
+                                                                placeholder="Email hoặc Số điện thoại">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="password"
+                                                            class="col-md-4 col-form-label text-md-right">Mật
+                                                            khẩu</label>
+
+                                                        <div class="col-md-6">
+                                                            <input id="password" type="password" class="form-control"
+                                                                name="password" required="" placeholder="Mật khẩu">
+
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="form-group row">
+                                                        <label for="password"
+                                                            class="col-md-4 col-form-label text-md-right">Mã bảo
+                                                            vệ</label>
+
+                                                        <div class="col-md-6">
+                                                            <div class="g-recaptcha"
+                                                                data-sitekey="6LeL2OQcAAAAAEIIAiWI7DMyniXwnInm6aGSzTBT">
+                                                            </div>
+
+                                                            <script type="text/javascript" async=""
+                                                                src="https://www.gstatic.com/recaptcha/releases/zLD1nfkNCJC1kEswSRdSyd-p/recaptcha__en.js"
+                                                                crossorigin="anonymous"
+                                                                integrity="sha384-uObFsIlmV0TvXnvnUvEhhDHEbjC4zBHwRA8tg/f0CcVHlIG0XlMAK1oHeK06zBCe"></script>
+                                                            <script
+                                                                src="https://www.google.com/recaptcha/api.js"></script>
+                                                        </div>
+                                                    </div> -->
+
+                                                    <div class="form-group row">
+                                                        <div class="col-md-6 offset-md-4">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="remember"> Ghi nhớ?
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row mb-0">
+                                                        <div class="col-md-8 offset-md-4">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                Đăng nhập
+                                                            </button>
+
+                                                            <a class="btn btn-link"
+                                                                href="/auth/forget">
+                                                                Quên mật khẩu?
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <br>
+                                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

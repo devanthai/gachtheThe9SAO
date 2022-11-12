@@ -1,0 +1,108 @@
+<div class="heading-page">
+    <div class="container">
+                    <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/"><span itemprop="name">Trang chủ</span></a>
+                        <span itemprop="position" content="1"></span>
+                    </li>
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/account/profile"><span itemprop="name">Thông tin tài khoản</span></a>
+                        <span itemprop="position" content="2"></span>
+                    </li>
+                            </ol>
+            </div>
+</div>
+
+<section class="main">
+    <div class="section">
+        <div class="container">
+            <div class="col-sm-12">
+                <div class="row mainpage-wrapper">
+                    <h4><span class="text-uppercase">Sửa thông tin tài khoản</span></h4>
+                    
+                    <%if(typeof message !="undefined" && message){%>
+                        <%-message%>
+                            <%}%>
+                    <div class="blockContent">
+                        <div class="row">
+                            <div class=" col-md-12">
+                                <form method="POST" action="/account/profile/edit"
+                                    accept-charset="UTF-8">
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td>Tên đăng nhập</td>
+                                                <td><input type="text" class="form-control" readonly="" name="username"
+                                                        value="<%-user.Username%>"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Họ và tên</td>
+                                                <td><input type="text" class="form-control" name="name"
+                                                        value="<%-userInfo.name%>"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td>
+                                                    
+                                                    <%if(userInfo.email==''){%>
+                                                        <input type="text" class="form-control" name="email"
+                                                        value="">
+                                                    <%}else{%>
+                                                        <input type="text" class="form-control" name="email"
+                                                        value="<%-userInfo.email%>" readonly="">
+                                                    <%}%>
+                                                    
+                                                    
+                                            
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số điện thoại</td>
+                                                <td>
+
+
+                                                    <%if(userInfo.phone==''){%>
+                                                        <input type="text" class="form-control" name="phone"
+                                                        value="">
+                                                    <%}else{%>
+                                                        <input type="text" class="form-control" name="phone"
+                                                        value="<%-userInfo.phone%>" readonly="">
+                                                    <%}%>
+
+                                                
+
+                
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Giới tính</td>
+                                                <td>
+                                                    <select name="gender" class="form-control" style="padding: 2px">
+                                                        <option value=""></option>
+                                                        <option value="unknown">Không khai báo</option>
+                                                        <option value="male" selected="selected">Nam</option>
+                                                        <option value="female">Nữ</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngôn ngữ</td>
+                                                <td>
+                                                    <select name="language" class="form-control" style="padding: 2px">
+                                                        <option value=""></option>
+                                                        <option value="vi" selected="selected">Tiếng Việt</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <input type="submit" class="btn btn-success" value="Cập nhật thông tin">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

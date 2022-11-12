@@ -1,0 +1,227 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <div class="blockPage">
+
+                    <h3 class="text-uppercase text-info">Đơn hàng: <%= deposit.transid %></h3>
+                    <div class="blockContent">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4><span class="text-uppercase">Thông tin dịch vụ</span></h4>
+                                <table class="table table-bordered table-striped dataTable">
+                                    <tbody>
+                                        <tr>
+                                            <td>Quỹ</td>
+                                            <td>VND</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số dư quỹ hiện tại</td>
+                                            <td><%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Số tiền nạp </td>
+                                            <td>
+                                                <strong class="text-success"> <%= String(Math.round(deposit.amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</strong>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Phí</td>
+                                            <td>0đ</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nội dung giao dịch</td>
+                                            <td><%= deposit.content %></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                               
+                                <script src="https://gachthe1s.com/adminlte/js/clipboard.min.js"></script>
+                                <script>
+                                    var clipboard = new ClipboardJS('.copyaccnum');
+
+                                    clipboard.on('success', function (e) {
+                                        console.log(e);
+
+                                    });
+
+                                    clipboard.on('error', function (e) {
+                                        console.log(e);
+                                    });
+                                </script>
+
+                                <script>
+                                    var clipboard = new ClipboardJS('.copyamount');
+
+                                    clipboard.on('success', function (e) {
+                                        console.log(e);
+
+                                    });
+
+                                    clipboard.on('error', function (e) {
+                                        console.log(e);
+                                    });
+                                </script>
+
+                                <script>
+                                    var clipboard = new ClipboardJS('.copymes');
+
+                                    clipboard.on('success', function (e) {
+                                        console.log(e);
+
+                                    });
+
+                                    clipboard.on('error', function (e) {
+                                        console.log(e);
+                                    });
+                                </script>
+    <%if(deposit.status==0){%>
+                                <h4><span class="text-uppercase">THÔNG TIN THANH TOÁN</span></h4>
+                                <section class="">
+
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <td width="30%">Ngân hàng:</td>
+                                                <td><b><%= gatebank.namebank %></b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">Số tài khoản:</td>
+                                                <td><b><%= gatebank.stk %></b>
+                                                    <button class="copyaccnum btn btn-light btn-sm"
+                                                        data-clipboard-text="<%= gatebank.stk %>">Copy
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="30%">Chủ tài khoản:</td>
+                                                <td><b><%= gatebank.name%></b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số tiền:</td>
+                                                <td><b><%= String(Math.round(deposit.amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VND</b>
+                                                    <button class="copyamount btn btn-light btn-sm"
+                                                        data-clipboard-text="<%= deposit.amount %>">Copy
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nội dung chuyển tiền:</td>
+                                                <td><b><%= deposit.content %></b>
+                                                    <button class="copymes btn btn-light btn-sm"
+                                                        data-clipboard-text="<%= deposit.content %>">Copy
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Trạng thái:</td>
+                                                <td>
+                                                    <div id="refresh">
+                                                        <div id="status">
+                                                            <%if(deposit.status==0){%>
+                                                            <span class="label label-default">CHỜ THANH TOÁN</span>
+                                                            <%}else if(deposit.status==1){%>
+                                                                <span class="label label-success">THÀNH CÔNG</span>
+                                                                <%}else if(data[i].status==2){%>
+    
+                                                                    <span class="label label-danger">ĐÃ HỦY</span>
+    
+                                                                    <%}%>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Ghi chú:</td>
+                                                <td><small class="text-danger">Vui lòng thanh toán vào số tài khoản bên
+                                                        trên. Yêu cầu copy chính xác số tiền và nội dung chuyển khoản
+                                                        đối với loại chuyển khoản. Hệ thống sẽ hủy giao dịch nếu không
+                                                        nhận được thanh toán trong vòng 15 phút</small><br>
+
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </section>
+
+                                <%}%>
+                            </div>
+                            <div class="col-md-4">
+                                <h4><span class="text-uppercase">Thông tin đơn hàng</span></h4>
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td>Cổng TT:</td>
+                                            <td>
+                                                <%= gatebank.gate %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Tổng số tiền:</td>
+                                            <td>
+                                                <strong class="text-success"></strong><%= String(Math.round(deposit.amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                        </tr>
+                                        <tr>
+                                            <td>Thanh toán:</td>
+                                            <td>
+
+
+                                                <%if(deposit.status==0){%>
+                                                    <span class="label label-default">Chờ thanh toán</span>
+                                              
+                                                    <%}else if(deposit.status==1){%>
+                                                        <span class="label label-success">Thành công</span>
+                                                    <%}else if(deposit.status==2){%>
+                                                        <span class="label label-danger">Đã hủy</span>
+                                                        <%}%>
+
+                                             
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Trạng thái:</td>
+                                            <td>
+                                                <%if(deposit.status==0){%>
+                                                    <span class="label label-default">Chờ thanh toán</span>
+                                              
+                                                    <%}else if(deposit.status==1){%>
+                                                        <span class="label label-success">Thành công</span>
+                                                    <%}else if(deposit.status==2){%>
+                                                        <span class="label label-danger">Đã hủy</span>
+                                                        <%}%>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ngày tạo:</td>
+                                            <td><%= new Date(Date.parse(deposit.time)).toLocaleString("pt-BR")%></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+    <%if(deposit.status==0){%>
+
+                                <div class="text-right">
+
+                                    <a href="/deposit/cancel/<%= deposit.transid %>">
+                                        <button class="btn btn-danger">Hủy nạp tiền</button>
+                                    </a>
+                                </div>
+                                <%}%>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

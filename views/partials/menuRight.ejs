@@ -1,0 +1,41 @@
+<span class="pull-right loginBox" style="color: #004b7f; padding-top: 15px">
+    <span class="navi-wrapper">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <i class="far fa-money-bill-alt" aria-hidden="true"></i>
+                    <%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ
+                </li>
+                <li>
+                    <a href="/account/profile" style="color: #004b7f"><i class="fa fa-user" aria-hidden="true"></i>
+                        <%-userInfo.name%>
+                    </a>
+                    <ul>
+                        <li><a href="/account/profile" class="hover_item"><i class="fa fa-angle-right"></i>
+                                <strong>Thông tin tài khoản</strong></a></li>
+                        <li><a href="/wallet/list" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Quỹ số
+                                    dư</strong></a></li>
+                        <li><a href="/merchant/list" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Kết
+                                    nối API</strong></a></li>
+                        <li><a href="/mua-the/history" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Lịch
+                                    sử mua thẻ</strong></a></li>
+                        <li><a href="/deposit" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Nạp
+                                    quỹ</strong></a></li>
+                        <li><a href="/withdraw" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Rút
+                                    quỹ</strong></a></li>
+                        <li><a href="/wallet/transfer" class="hover_item"><i class="fa fa-angle-right"></i>
+                                <strong>Chuyển quỹ</strong></a></li>
+                        <li><a href="/account/security" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Bảo
+                                    mật</strong></a></li>
+                        <li><a href="/user/localbank" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Tài
+                                    khoản ngân hàng</strong></a></li>
+                        <li><a href="/account/change-password" class="hover_item"><i class="fa fa-angle-right"></i>
+                                <strong>Đổi mật khẩu</strong></a></li>
+                        <li><a class="hover_item" href="/auth/logout"><i class="fa fa-angle-right"></i> <strong>Đăng
+                                    xuất</strong></a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </span>
+</span>

@@ -1,0 +1,245 @@
+<div class="heading-page">
+    <div class="container">
+        <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="/"><span itemprop="name">Trang chủ</span></a>
+                <span itemprop="position" content="1"></span>
+            </li>
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="/wallet/list"><span itemprop="name">Danh sách quỹ</span></a>
+                <span itemprop="position" content="2"></span>
+            </li>
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="/deposit"><span itemprop="name">Nạp vào tài khoản</span></a>
+                <span itemprop="position" content="3"></span>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                            <section class="row">
+                                <div class="col-md-5">
+                                    <small class="text-danger">CẢNH BÁO: 1. Nạp ATM, Momo vào The9sao chỉ hỗ trợ nạp chính
+                                        chủ, nhờ
+                                        người khác chuyển tiền khóa tài khoản, tịch thu tiền. 2. Nạp tiền vào web sau đó
+                                        "RÚT TIỀN,
+                                        ĐỔI TIỀN, RỬA TIỀN" khóa tk v.v</small>
+                                    <h4><span class="text-uppercase">Tạo phiếu nạp tiền (Lưu ý: Cảnh báo phía
+                                            trên)</span></h4>
+
+                                    <form method="POST" action="/deposit" accept-charset="UTF-8">
+
+                                        <div class="form-group">
+                                            <label for="FormControlSelect">Số dư tài khoản:</label>
+                                            <strong class="text-success">
+                                                <%=
+                                                    String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                    VND
+                                            </strong>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="net_amount">Số tiền nạp:</label>
+                                            <input name="net_amount" type="text" class="form-control" id="net_amount"
+                                                placeholder="Số tiền nạp" value="">
+                                            <small class="text-danger">Tối thiểu
+                                                <%=String(setting.deposit.minin).replace( /(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                    VND , Tối đa <%=String(setting.deposit.maxin).replace(
+                                                        /(.)(?=(\d{3})+$)/g,'$1,')%> VND</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <style>
+                                                #mtopup-form ul {
+                                                    padding: 0;
+                                                }
+
+                                                #mtopup-form li {
+                                                    padding: 5px;
+                                                    list-style: none;
+                                                    display: inline-block;
+                                                }
+
+                                                #mtopup-form img {
+                                                    width: 100%;
+                                                }
+
+                                                #mtopup-form li.active {
+                                                    border: 3px solid #42b873;
+                                                    padding: 0px;
+                                                }
+
+                                                #mtopup-form input[type=radio] {
+                                                    display: none;
+                                                }
+                                            </style>
+                                            <div class="clearfix" style="margin-bottom: 15px"></div>
+                                            <div class="text-left">
+                                                <div class="title"><strong>Phương thức thanh toán:</strong></div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <select name="paygate_code" class="form-control"
+                                                            style="padding: 0px">
+                                                            <% for (var i=0; i < banks.length; i++) { %>
+                                                                <option value="<%= banks[i].gate %>">
+                                                                    <%= banks[i].namebank %>
+                                                                </option>
+                                                                <%}%>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-lg btn-primary">Nạp tiền ngay</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="col-md-7">
+                                    <h4><span class="text-uppercase">Hạn mức và phí</span></h4>
+                                    <table class="table table-bordered table-striped dataTable">
+                                        <tbody>
+                                            <tr>
+                                                <td>Tổng hạn mức ngày</td>
+                                                <td><strong>
+                                                        <%=String(setting.deposit.totalday).replace(
+                                                            /(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                            VND
+                                                    </strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số tiền tối thiểu</td>
+                                                <td><strong>
+                                                        <%=String(setting.deposit.minin).replace(
+                                                            /(.)(?=(\d{3})+$)/g,'$1,')%> VND
+                                                    </strong></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số tiền tối đa</td>
+                                                <td><strong>
+                                                        <%=String(setting.deposit.maxin).replace(
+                                                            /(.)(?=(\d{3})+$)/g,'$1,')%> VND
+                                                    </strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div id="table-scroll" class="table-scroll">
+                                        <table class="table table-bordered table-striped dataTable fixed_headers">
+                                            <thead>
+                                                <tr>
+                                                    <th>Cổng thanh toán</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="scroll-data">
+                                                <% for (var i=0; i < banks.length; i++) { %>
+                                                    <tr>
+                                                        <td>
+                                                            <%= banks[i].namebank %>
+                                                        </td>
+                                                    </tr>
+                                                    <%}%>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 table-responsive">
+                                    <br>
+                                    <h4><span class="text-uppercase">Lịch sử nạp tiền</span></h4>
+                                    <table class="table table-bordered table-striped dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Đơn hàng</th>
+                                                <th>Nạp vào tài khoản</th>
+                                                <th>Số tiền</th>
+                                                <th>Cổng thanh toán</th>
+                                                <th>Ngày tạo</th>
+                                                <th>Trạng thái</th>
+                                                <th>Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <% for (var i=0; i < data.length; i++) { %>
+                                                <tr>
+                                                   
+
+
+                                                    <td><%= data[i].transid %><br><small class="text-muted">(<%= data[i].content %>)</small></td>
+                                                    <td>VND</td>
+                                                    <td>+<%=String(data[i].amount).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</td>
+                                                    <td><%= data[i].gate %></td>
+                                                    <td><%= new Date(Date.parse(data[i].time)).toLocaleString("pt-BR")%></td>
+                                                    <td>
+                                                
+                                                            <%if(data[i].status==0){%>
+                                                                <span class="label label-default">CHỜ THANH TOÁN</span>
+                                                                <%}else if(data[i].status==1){%>
+                                                                    <span class="label label-success">THÀNH CÔNG</span>
+                                                                <%}else if(data[i].status==2){%>
+    
+                                                                    <span class="label label-danger">ĐÃ HỦY</span>
+    
+                                                                    <%}%>
+                                                    </td>
+                                                    <td>
+                                                        <a href="/deposit/checkout/<%= data[i].transid %>"><button
+                                                                class="btn btn-info btn-sm">Chi tiết
+                                                            </button></a>
+                                                    </td>
+
+                                                </tr>
+                                                <% } %>
+
+
+                                                    
+
+                                        </tbody>
+                                    </table>
+                                    <% if (pages > 0) { %>
+                                        <nav aria-label="...">
+                                            <ul class="pagination">
+                                            <% if (current == 1) { %>
+                                                <li class="page-item disabled"><a class="page-link">Đầu</a></li>
+                                            <% } else { %>
+                                                <li><a class="page-link" href="/deposit?page=1">Đầu</a></li>
+                                            <% } %>
+                                            <% var i = (Number(current) > 2 ? Number(current) - 2 : 1) %>
+                                            <% if (i !== 1) { %>
+                                                <li class="disabled"><a class="page-link">...</a></li>
+                                            <% } %>
+                                            <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                                                <% if (i == current) { %>
+                                                    <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                                                <% } else { %>
+                                                    <li><a class="page-link" href="/deposit?page=<%= i %>"><%= i %></a></li>
+                                                <% } %>
+                                                <% if (i == Number(current) + 2 && i < pages) { %>
+                                                    <li class="page-item disabled"><a class="page-link">...</a></li>
+                                                <% } %>
+                                            <% } %>
+                                            <% if (current == pages) { %>
+                                                <li class="page-item disabled"><a class="page-link">Cuối</a></li>
+                                            <% } else { %>
+                                                <li><a class="page-link" href="/deposit?page=<%= pages %>">Cuối</a></li>
+                                            <% } %>
+                                        </ul>
+                                    </nav>
+                                    <% } %>
+
+                                </div>
+                            </section>
+            </div>
+        </div>
+
+    </div>
+</div>

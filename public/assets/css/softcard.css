@@ -1,0 +1,109 @@
+
+.row-group{ margin-bottom: 0px; }
+.form-group { margin-bottom: 5px; }
+.softcard-page .tab-pane{
+  padding: 15px 0;
+}
+.softcard-page .tab-pane .btn{
+  min-height: 45px;
+}
+.softcard-page .card-game-panel{
+  padding-top: 35px;
+}
+.softcard-page .blockContent{
+  position: relative;
+}
+.softcard-page .overlay{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.7);
+  text-align: center;
+}
+.softcard-page .overlay i{
+  font-size: 24px;
+  position: absolute;
+  margin-top: -12px;
+  top: 50%;
+}
+#shopping-cart-wrapper input[type="number"]{
+  min-width: 45px;
+  text-align: center;
+  min-height: 40px;
+}
+#shopping-cart-wrapper .cell-header{
+  margin: 0 0 10px ;
+}
+#shopping-cart-wrapper .delete-cart{
+  float: right;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+}
+#shopping-cart-wrapper li{
+  margin: 5px 0;
+}
+#shopping-cart-wrapper span.cell-total {
+  margin: 0 0 0 10px;
+  width: 80px;
+  display: inline-block;
+  text-align: right;
+}
+#shopping-cart-wrapper .cell-delete-item{
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+#shopping-cart-wrapper .col-name {
+  width: 45%;
+  float: left;
+  padding: 0 5px 0 10px;
+}
+#shopping-cart-wrapper .col-qty {
+  width: 15%;
+  float: left;
+  padding: 0 5px;
+  position: relative;
+}
+#shopping-cart-wrapper .col-qty .btn-number{
+  position: absolute;
+  right: 8px;
+  top: 2px;
+  display: block;
+  margin: 0;
+  cursor: pointer;
+  color: #31708f;
+}
+#shopping-cart-wrapper .col-qty .btn-number.disabled{
+  color: #ccc;
+}
+#shopping-cart-wrapper .col-qty .btn-number.fa-minus-square{
+  top: auto;
+  bottom: 2px;
+}
+#shopping-cart-wrapper .col-price.text-right {
+  float: left;
+  width: 25%;
+  padding: 0 5px;
+}
+#shopping-cart-wrapper .col-action {
+  float: right;
+  width: 15%;
+  padding: 0 10px 0 5px;
+}
+#shopping-cart-wrapper hr{
+  margin: 5px 0;
+}
+#shopping-cart-wrapper .panel-heading{
+  text-transform: uppercase;
+}
+#shopping-cart-wrapper .payment-method input[type=checkbox],
+#shopping-cart-wrapper .payment-method input[type=radio]{
+  display: inline-block;
+  margin: 8px 0 0;
+  float: left;
+}
+#shopping-cart-wrapper .payment-method label{
+  margin: 0 0 0 10px;
+  line-height: 30px;
+}

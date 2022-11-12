@@ -1,0 +1,119 @@
+<section class="main">
+    <div class="section">
+        <div class="container">
+            <div class="col-sm-12">
+                <div class="row mainpage-wrapper">
+
+                        <h4 style="margin-top: 40px"><span class="text-uppercase">Thông tin tài khoản</span></h4>
+
+
+                        
+                        <%if(typeof message !="undefined" && message){%>
+                            <%-message%>
+                                <%}%>
+
+
+<div class="blockContent">
+    <div class="row">
+        <div class=" col-md-12">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td>Tên đăng nhập:</td>
+                    <td><strong><%-user.Username%></strong></td>
+                </tr>
+                <tr>
+                    <td>Họ và tên:</td>
+                    <td><%-userInfo.name%></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><%-userInfo.email%></td>
+                </tr>
+                <tr>
+                    <td>Số điện thoại:</td>
+                    <td><%-userInfo.phone%></td>
+                </tr>
+                <tr>
+                    <td>Nhóm:</td>
+                    <td> Thành viên </td>
+                </tr>
+                <tr>
+                    <td>Xác thực điện thoại:</td>
+                    <td>                                <a href="/account/verify/phone"><button class="btn btn-sm btn-danger">Chưa xác thực</button></a></td>
+                </tr>
+
+                <tr>
+                    <td>Xác thực email:</td>
+                    <td>                                <a href="/account/verify/email"> <button class="btn btn-sm btn-danger">Chưa xác thực</button></a>
+                                                </td>
+                </tr>
+
+                <tr>
+                    <td>Ngày đăng ký:</td>
+                    <td><%= new Date(Date.parse(userInfo.joindate)).toLocaleString("pt-BR")%></td>
+                </tr>
+                <tr>
+                    <td>Ví điện tử:</td>
+                    <td>
+                        <%-user.Username%> (<span class="text-success"><b><%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ VND</b></span>
+                                )<br>
+                                                                                </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+            <a href="/account/profile/edit" class="btn btn-success">Sửa thông tin</a>
+            <a href="/account/change-password" class="btn btn-warning">Đổi mật khẩu</a>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h4><span class="text-uppercase">Lịch sử đăng nhập</span></h4>
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="table-responsive">
+                <table id="example1" class="table table-bordered table-striped ">
+                    <thead>
+                    <tr>
+                        <th>IP</th>
+                        <th>Ngày tạo</th>
+                        <th>Trình duyệt</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+
+
+                        <% for (var i = 0; i < loginlogs.length; i++) { %>
+                            <tr class="irow">
+                                <td><%=loginlogs[i].ip%></td>
+                                <td><%= new Date(Date.parse(loginlogs[i].time)).toLocaleString("pt-BR")%></td>
+                                <td><%=loginlogs[i].userAgent%></td>
+    
+                            </tr>
+
+                            <% } %>
+                        
+                                     
+                    
+                    </tbody>
+
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>

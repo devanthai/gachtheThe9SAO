@@ -1,0 +1,234 @@
+<div class="block-header">
+    <h2>Cài đặt website</h2>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Cấu hình api đổi thẻ
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+
+                                <h2 class="card-inside-title">partner_id</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input value="<%= setting.apicard.partner_id %>" id="partner_id" type="text"
+                                            class="form-control" placeholder="partner_id">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">partner_key</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="partner_key" value="<%= setting.apicard.partner_key %>" type="text"
+                                            class="form-control" placeholder="partner_key">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">url</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="url" value="<%= setting.apicard.url %>" type="text"
+                                            class="form-control" placeholder="url">
+                                    </div>
+                                </div>
+                                <button type="button" onclick="SaveApiCard()" class="btn btn-danger waves-effect">Lưu
+                                    lại</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Cấu hình api mua card
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+
+                                <h2 class="card-inside-title">partner_id</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input value="<%= setting.apibuycard.partner_id %>" id="partner_idbuy" type="text"
+                                            class="form-control" placeholder="partner_id">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">partner_key</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="partner_keybuy" value="<%= setting.apibuycard.partner_key %>" type="text"
+                                            class="form-control" placeholder="partner_key">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">url</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="urlbuy" value="<%= setting.apibuycard.url %>" type="text"
+                                            class="form-control" placeholder="url">
+                                    </div>
+                                </div>
+                                <button type="button" onclick="SaveApiBuyCard()" class="btn btn-danger waves-effect">Lưu
+                                    lại</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Thông báo
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+                                <h2 class="card-inside-title">Thông báo</h2>
+                                <div class="form-group" id="editor">
+                                    <%-setting.thongbao %>
+                                </div>
+                                <button type="button" onclick="SaveThongBao()" class="btn btn-danger waves-effect">Lưu
+                                    lại</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="thongbao" hidden="true">
+    <%=setting.thongbao %>
+</div>
+<script src="https://cdn.ckeditor.com/4.16.2/full/ckeditor.js"></script>
+<script>
+    CKEDITOR.editorConfig = function (config) {
+        // The toolbar groups arrangement, optimized for a single toolbar row.
+        config.toolbarGroups = [
+            { name: 'document', groups: ['mode', 'document', 'doctools'] },
+            { name: 'clipboard', groups: ['clipboard', 'undo'] },
+            { name: 'editing', groups: ['find', 'selection', 'spellchecker'] },
+            { name: 'forms' },
+            { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'] },
+            { name: 'links' },
+            { name: 'insert' },
+            { name: 'styles' },
+            { name: 'colors' },
+            { name: 'tools' },
+            { name: 'others' },
+            { name: 'about' }
+        ];
+
+        // The default plugins included in the basic setup define some toolbar buttons that
+        // are not needed in a basic editor. These are removed here.
+        config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
+
+        // Dialog windows are also simplified.
+        config.removeDialogTabs = 'link:advanced';
+
+        // Finally, configure editor placeholder text.
+        config.editorplaceholder = 'Type something here...';
+    };
+    CKEDITOR.replace('editor', {
+        height: 400,
+        baseFloatZIndex: 10005,
+        removeButtons: 'PasteFromWord'
+    });
+</script>
+<script>
+    SaveMain = () => {
+        $.ajax({
+            url: "/setting/saveMain",
+            type: "post",
+            data: {
+                title: $("#titleweb").val()
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    SaveThongBao = () => {
+
+        $.ajax({
+            url: "/setting/saveSettingThongbao",
+            type: "post",
+            data: {
+                thongbao: CKEDITOR.instances['editor'].getData()
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    SaveApiCard = () => {
+        const partner_id = $("#partner_id").val()
+        const partner_key = $("#partner_key").val()
+        const url = $("#url").val()
+        $.ajax({
+            url: "/setting/saveSettingcard",
+            type: "post",
+            data: {
+                partner_id: partner_id,
+                partner_key: partner_key,
+                url: url
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    SaveApiBuyCard = () => {
+        const partner_id = $("#partner_idbuy").val()
+        const partner_key = $("#partner_keybuy").val()
+        const url = $("#urlbuy").val()
+        $.ajax({
+            url: "/setting/saveBuyCard",
+            type: "post",
+            data: {
+                partner_id: partner_id,
+                partner_key: partner_key,
+                url: url
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+</script>

@@ -1,0 +1,33 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-9">
+            <div class="row mainpage-wrapper">
+                
+                <h4><span class="text-uppercase">Chỉnh sửa mật khẩu cấp 2</span></h4>
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <div class="blockContent">
+                    <div class="row">
+                        <div class=" col-md-12">
+                            <form method="POST" action="/account/profile/updatemkc2"
+                                accept-charset="UTF-8">
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td>Mật khẩu cấp 2</td>
+                                            <td><input type="password" class="form-control" name="passwordc2"
+                                                    value=""></td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+                                <input type="submit" class="btn btn-success" value="Cập nhật thông tin">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

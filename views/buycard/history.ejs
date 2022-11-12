@@ -1,0 +1,139 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <h4><span class="text-uppercase">Lịch sử mua thẻ</span></h4>
+                <div class="blockContent">
+                    <div class="card">
+                        <div class="card-body" style="padding-bottom: 10px;">
+                            <form action="" name="formSearch" method="GET" class="form-inline">
+                                <div class="form-group">
+                                    <select name="status" class="form-control" style="padding: 0px">
+                                        <option value="" selected="selected">-- Trạng thái --</option>
+                                        <option value="completed">Hoàn thành</option>
+                                        <option value="canceled">Đã hủy</option>
+                                        <option value="pending">Chờ xử lý</option>
+                                        <option value="none">Nháp</option>
+                                    </select>
+                                    <input class="form-control" value="<%-new Date().toLocaleDateString('zh-Hans-CN')%>"
+                                        name="fromdate" id="datepicker">
+                                    <input class="form-control" value="<%-new Date().toLocaleDateString('zh-Hans-CN')%>"
+                                        name="todate" id="datepicker2">
+                                    <button type="submit" name="submit" value="filter" class="btn btn-success btn-sm"><i
+                                            class="fa fa-search"></i> Lọc dữ liệu</button>
+                                    <button type="submit" name="submit" value="excel" class="btn btn-warning btn-sm"><i
+                                            class="fa fa-download"></i> Xuất dữ liệu</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table id="example1" class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Đơn hàng</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Thanh toán</th>
+                                            <th>Đơn hàng</th>
+                                            <th>Số tiền</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for (var i=0; i < cardHistorys.length; i++) { %>
+                                            <tr>
+                                                <td>
+                                                    <%-cardHistorys[i].transId%>
+                                                        <br>
+                                                        <span class="text-muted"></span>
+                                                </td>
+                                                <td>
+                                                    <% for (var iz=0; iz < cardHistorys[i].data.length; iz++) { %>
+                                                        <b>
+                                                            <%-cardHistorys[i].data[iz].qty%>
+                                                        </b>
+                                                        <%-cardHistorys[i].data[iz].card.name%><br>
+                                                            <%}%>
+                                                </td>
+                                                <td>
+                                                    <span class="label label-success">Đã thanh toán</span>
+                                                </td>
+                                                <td>
+                                                    <span class="label label-success">Hoàn thành</span>
+                                                </td>
+                                                <td>
+                                                    <%=
+                                                        String(Math.round(cardHistorys[i].totalAmount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>
+                                                        đ VND
+                                                </td>
+
+                                                <td>
+                                                    <%= new
+                                                        Date(Date.parse(cardHistorys[i].time)).toLocaleString("pt-BR")%>
+                                                </td>
+                                                <td>
+                                                    <a href="/mua-the/oder/<%-cardHistorys[i].transId%>"><button
+                                                            type="submit" class="btn btn-info btn-xs" value="delete">Xem
+                                                            đơn</button></a>
+                                                </td>
+                                            </tr>
+                                            <%}%>
+                                    </tbody>
+                                </table>
+                                <% if (pages> 0) { %>
+                                    <nav aria-label="...">
+                                        <ul class="pagination">
+                                            <% if (current==1) { %>
+                                                <li class="page-item disabled"><a class="page-link">Đầu</a></li>
+                                                <% } else { %>
+                                                    <li><a class="page-link" href="/mua-the/history?page=1">Đầu</a></li>
+                                                    <% } %>
+                                                        <% var i=(Number(current)> 2 ? Number(current) - 2 : 1) %>
+                                                            <% if (i !==1) { %>
+                                                                <li class="disabled"><a class="page-link">...</a></li>
+                                                                <% } %>
+                                                                    <% for (; i <=(Number(current) + 5) && i <=pages;
+                                                                        i++) { %>
+                                                                        <% if (i==current) { %>
+                                                                            <li class="page-item active"><a
+                                                                                    class="page-link">
+                                                                                    <%= i %>
+                                                                                </a></li>
+                                                                            <% } else { %>
+                                                                                <li><a class="page-link"
+                                                                                        href="/mua-the/history?page=<%= i %>">
+                                                                                        <%= i %>
+                                                                                    </a></li>
+                                                                                <% } %>
+                                                                                    <% if (i==Number(current) + 5 && i <
+                                                                                        pages) { %>
+                                                                                        <li class="page-item disabled">
+                                                                                            <a class="page-link">...</a>
+                                                                                        </li>
+                                                                                        <% } %>
+                                                                                            <% } %>
+                                                                                                <% if (current==pages) {
+                                                                                                    %>
+                                                                                                    <li
+                                                                                                        class="page-item disabled">
+                                                                                                        <a
+                                                                                                            class="page-link">Cuối</a>
+                                                                                                    </li>
+                                                                                                    <% } else { %>
+                                                                                                        <li><a class="page-link"
+                                                                                                                href="/mua-the/history?page=<%= pages %>">Cuối</a>
+                                                                                                        </li>
+                                                                                                        <% } %>
+                                        </ul>
+                                    </nav>
+                                    <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

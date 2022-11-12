@@ -1,0 +1,216 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<div class="heading-page">
+    <div class="container">
+        <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="/"><span itemprop="name">Trang chủ</span></a>
+                <span itemprop="position" content="1"></span>
+            </li>
+            <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                <a itemprop="item" href="/doithecao"><span itemprop="name">Đổi thẻ cào</span></a>
+                <span itemprop="position" content="2"></span>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<%- include('../partials/doithecao'); %>
+    <div class="container">
+
+        <h3 class="panel-title">Lịch sử đổi thẻ</h3>
+        <div style="margin-bottom: 20px">
+            <form action="" name="formSearch" method="GET" class="form-inline">
+                <div class="form-group">
+                    <select name="telco" class="form-control" style="padding: 0px">
+                        <option value="all">Tất cả</option>
+                        <option value="VIETTEL">VIETTEL</option>
+                        <option value="VINAPHONE">VINAPHONE</option>
+                        <option value="MOBIFONE">MOBIFONE</option>
+                        <option value="GATE">GATE</option>
+                        <option value="ZING">ZING</option>
+                        <option value="VNMOBI">VNMOBI</option>
+                    </select>
+
+                    <select name="value" class="form-control" style="padding: 0px">
+
+                        <option value="" selected="selected">Mệnh giá</option>
+                        <option value="10000">10.000đ</option>
+                        <option value="20000">20.000đ</option>
+                        <option value="30000">30.000đ</option>
+                        <option value="50000">50.000đ</option>
+                        <option value="100000">100.000đ</option>
+                        <option value="200000">200.000đ</option>
+                        <option value="300000">300.000đ</option>
+                        <option value="500000">500.000đ</option>
+                        <option value="1000000">1.000.000đ</option>
+
+                    </select>
+
+                    <select name="status" class="form-control" style="padding: 0px">
+
+                        <option value="correct">Thẻ đúng</option>
+                        <option value="wrong">Sai mệnh giá</option>
+                        <option value="invalid">Thẻ lỗi</option>
+                        <option value="waiting">Thẻ chờ</option>
+
+                    </select>
+                    <input class="form-control" value="<%-new Date().toLocaleDateString()%>" name="fromdate" id="datepicker">
+                    <input class="form-control" value="<%-new Date().toLocaleDateString()%>" name="todate" id="datepicker2">
+
+                    <button type="submit" class="btn btn-success btn-sm" name="submit" value="filter"><i
+                            class="fa fa-search"></i> Lọc dữ liệu</button>
+                    <button type="submit" class="btn btn-info btn-sm" name="submit" value="excel"><i
+                            class="fa fa-download"></i> Xuất dữ liệu</button>
+
+                </div>
+            </form>
+
+        </div>
+        <div class="table-responsive">
+            <table id="example1" class="table table-bordered table-striped dataTable">
+                <thead>
+                    <tr>
+                        <th>TT</th>
+                        <th>Mã thẻ</th>
+                        <th>Mã seri</th>
+                        <th>Nhà mạng</th>
+                        <th>Khai</th>
+                        <th>Thực</th>
+                        <th>Phí</th>
+                        <th>Phạt</th>
+                        <th>Nhận</th>
+                        <th>Ngày</th>
+                        <th>Request ID</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    <% for (var i=0; i < hiscard.his.length; i++) { %>
+                        <tr>
+                            <td>
+                                <%if(hiscard.his[i].status==99){%>
+                                    <span class="label label-warning">Thẻ chờ</span>
+                                    <% }else if(hiscard.his[i].status==1){ %>
+                                        <span class="label label-success">Thẻ đúng</span>
+                                        <% }else if(hiscard.his[i].status==2){ %>
+                                            <span class="label label-info">Sai mệnh giá</span>
+                                            <% }else if(hiscard.his[i].status==3){ %>
+                                                <span class="label label-danger">Thẻ lỗi</span>
+                                                <% }else{ %>
+                                                    <span class="label label-danger">
+                                                        <%-hiscard.his[i].message%>
+                                                    </span>
+                                                    <% } %>
+                            </td>
+                            <td>
+                                <%= hiscard.his[i].code %>
+                            </td>
+                            <td>
+                                <%= hiscard.his[i].serial %>
+                            </td>
+                            <td>
+                                <%= hiscard.his[i].telco %>
+                            </td>
+                            <td>
+                                <%=String(hiscard.his[i].declared_value).replace( /(.)(?=(\d{3})+$)/g,'$1,')%>
+                            </td>
+                            <td>
+                                <%=String(hiscard.his[i].value).replace( /(.)(?=(\d{3})+$)/g,'$1,')%>
+                            </td>
+                            <td>
+                                <%=String(hiscard.his[i].fees).replace( /(.)(?=(\d{3})+$)/g,'$1,')%>%
+                            </td>
+                            <td>
+                                <%= hiscard.his[i].status==2 ? hiscard.his[i].penalty:0 %>%
+                            </td>
+                            <td>
+                                <%=String(hiscard.his[i].amount).replace( /(.)(?=(\d{3})+$)/g,'$1,')%>
+                            </td>
+                            <td>
+                                <%= new Date(Date.parse(hiscard.his[i].time)).toLocaleString("pt-BR")%>
+                            </td>
+                            <td>
+                                <%if(hiscard.his[i].isApi){%>
+                                <%= hiscard.his[i].request_id %>
+                                    <br><a href="/doithecao/recallback/<%= hiscard.his[i].request_id %>"><button
+                                            class="btn btn-sm btn-dark">CallBack</button></a>
+                                            <%}%>
+                            </td>
+                        </tr>
+                        <% } %>
+
+
+
+                            <tr>
+                                <td colspan="4">
+                                    <form action="" method="GET" class="form-inline">
+                                        <div class="form-group">
+                                            <input class="form-control" value="" name="searchcode"
+                                                placeholder="Mã thẻ, Mã seri, requestid">
+
+                                            <button type="submit" class="btn btn-warning btn-sm"><i
+                                                    class="fa fa-search"></i>
+                                                Tìm
+                                                kiếm</button>
+                                        </div>
+                                    </form>
+                                </td>
+                                <%if(typeof isSearch !="undefined" && isSearch){%>
+                                    <td colspan="1" align="right">
+                                        <strong>Tổng số:</strong>
+                                    </td>
+                                    <td><strong> <%=String(totalReal).replace( /(.)(?=(\d{3})+$)/g,'$1,')%></strong></td>
+                                    <td colspan="2"></td>
+                                    <td colspan="3">
+                                        <strong><%=String(totalRecive).replace( /(.)(?=(\d{3})+$)/g,'$1,')%></strong>
+                                    </td>
+                                    <%}else{%>
+                                <td colspan="7"></td>
+                                <%}%>
+
+                            </tr>
+                </tbody>
+            </table>
+        </div>
+        <% if (hiscard.pages> 0) { %>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <% if (hiscard.current==1) { %>
+                        <li class="page-item disabled"><a class="page-link">Đầu</a></li>
+                        <% } else { %>
+                            <li><a class="page-link" href="/doithecao?page=1">Đầu</a></li>
+                            <% } %>
+                                <% var i=(Number(hiscard.current)> 2 ? Number(hiscard.current) - 2 : 1) %>
+                                    <% if (i !==1) { %>
+                                        <li class="disabled"><a class="page-link">...</a></li>
+                                        <% } %>
+                                            <% for (; i <=(Number(hiscard.current) + 5) && i <=hiscard.pages; i++) { %>
+                                                <% if (i==hiscard.current) { %>
+                                                    <li class="page-item active"><a class="page-link">
+                                                            <%= i %>
+                                                        </a></li>
+                                                    <% } else { %>
+                                                        <li><a class="page-link" href="/doithecao?page=<%= i %>">
+                                                                <%= i %>
+                                                            </a></li>
+                                                        <% } %>
+                                                            <% if (i==Number(hiscard.current) + 5 && i < hiscard.pages)
+                                                                { %>
+                                                                <li class="page-item disabled"><a
+                                                                        class="page-link">...</a></li>
+                                                                <% } %>
+                                                                    <% } %>
+                                                                        <% if (hiscard.current==hiscard.pages) { %>
+                                                                            <li class="page-item disabled"><a
+                                                                                    class="page-link">Cuối</a></li>
+                                                                            <% } else { %>
+                                                                                <li><a class="page-link"
+                                                                                        href="/doithecao?page=<%= hiscard.pages %>">Cuối</a>
+                                                                                </li>
+                                                                                <% } %>
+                </ul>
+            </nav>
+            <% } %>
+    </div>

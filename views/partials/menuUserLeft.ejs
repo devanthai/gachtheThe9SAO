@@ -1,0 +1,42 @@
+<div class="rightVerticleMenu off-menu">
+    <div class="brand-block" style="margin-bottom: 20px"><a class="navbar-brand" href="/"><img
+                src="/assets/images/black.png" alt=""></a></div>
+    <div class="content-menu">
+        <ul class="list-menu listMenuUserPanel">
+            <%if(typeof user=="undefined" || user==null){%>
+                <li><a href="/auth/login">Đăng nhập</a></li>
+                <li><a href="/auth/register">Đăng ký</a></li>
+                <li><a href="/auth/forget">Quên mật khẩu?</a></li>
+                <%}else{%>
+                    <li>
+                        <h4 style="padding-left: 5px">Số dư: <%=String(Math.round(userInfo.money)).replace(
+                                /(.)(?=(\d{3})+$)/g,'$1,')%>đ</h4>
+                    </li>
+                    <li><a href="/account/profile" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Thông
+                                tin tài khoản</strong></a></li>
+                    <li><a href="/wallet/list" class="hover_item"><i class="fa fa-angle-right"></i>
+                            <strong>Quỹ số dư</strong></a></li>
+                    <li><a href="/wallet/history" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Lịch
+                                sử</strong></a></li>
+                    <li><a href="/merchant/list" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Kết nối
+                                API</strong></a></li>
+                    <li><a href="/mua-the/history" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Lịch sử
+                                mua thẻ</strong></a></li>
+                    <li><a href="/deposit" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Nạp
+                                quỹ</strong></a></li>
+                    <li><a href="/withdraw" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Rút
+                                quỹ</strong></a></li>
+                    <li><a href="/wallet/transfer" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Chuyển
+                                quỹ</strong></a></li>
+                    <li><a href="/account/security" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Bảo
+                                mật</strong></a></li>
+                    <li><a href="/user/localbank" class="hover_item"><i class="fa fa-angle-right"></i> <strong>Tài khoản
+                                ngân hàng</strong></a></li>
+                    <li><a href="/account/change-password" class="hover_item"><i class="fa fa-angle-right"></i>
+                            <strong>Đổi mật khẩu</strong></a></li>
+                    <li><a class="hover_item" href="/auth/logout"><i class="fa fa-angle-right"></i> <strong>Đăng
+                                xuất</strong></a></li>
+                    <%}%>
+        </ul>
+    </div>
+</div>

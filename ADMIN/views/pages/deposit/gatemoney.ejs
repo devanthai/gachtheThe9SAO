@@ -1,0 +1,334 @@
+<div class="block-header">
+    <h2>Cấu hình nạp tiền</h2>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Cấu hình nạp tiền
+
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+                            <div class="col-sm-12">
+
+                                <h2 class="card-inside-title">Tổng hạn mức ngày</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input value="<%= setting.deposit.totalday %>" id="hanmucngay" type="text"
+                                            class="form-control" placeholder="Tổng hạn mức ngày">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Số tiền nạp tối thiểu</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="minin" value="<%= setting.deposit.minin %>" type="text"
+                                            class="form-control" placeholder="Số tiền nạp tối thiểu">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Số tiền nạp tối đa</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="maxin" value="<%= setting.deposit.maxin %>" type="text"
+                                            class="form-control" placeholder="Số tiền nạp tối đa">
+                                    </div>
+                                </div>
+                                <button type="button" onclick="SaveSetting()" class="btn btn-danger waves-effect">Lưu
+                                    lại</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Thông tin thanh toán nạp tiền
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+
+                            <div class="col-sm-6">
+                                <div class="body table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tên</th>
+                                                <th>Số tài khoản</th>
+                                                <th>Tên bank</th>
+                                                <th>Cổng nạp</th>
+                                                <th>Thao tác</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for (var i=0; i < banks.length; i++) { %>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <%= banks[i].name %>
+                                                    </th>
+                                                    <td>
+                                                        <%= banks[i].stk %>
+                                                    </td>
+                                                    <td>
+                                                        <%= banks[i].namebank %>
+                                                    </td>
+                                                    <td>
+                                                        <%= banks[i].gate %>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" onclick="removeBank('<%=banks[i]._id%>')"
+                                                            class="btn btn-danger waves-effect">Xóa</button>
+
+                                                    </td>
+                                                </tr>
+                                                <%}%>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <h2 class="card-inside-title">Tên người nhận</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="name" type="text" class="form-control" placeholder="Tên người nhận">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Số tài khoản</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="stk" type="text" class="form-control" placeholder="Số tài khoản">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Ngân hàng</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="bankname" type="text" class="form-control" placeholder="Ngân hàng">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Gate</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="gate" type="text" class="form-control" placeholder="Gate">
+                                    </div>
+                                </div>
+                                <button type="button" onclick="addBank()"
+                                    class="btn btn-primary m-t-15 waves-effect">Thêm bank</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>
+                    Cấu hình auto nạp tiền
+                </h2>
+            </div>
+            <div class="body">
+                <div class="row clearfix">
+                    <div class="body">
+                        <div class="row clearfix">
+
+                            <div class="col-sm-12">
+                                <h2>MB_BANK</h2>
+                                <h2 class="card-inside-title">Username</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="UsernameMb" value="<%-setting.autoDeposit.MBbank.username%>"
+                                            type="text" class="form-control" placeholder="Username">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Password</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="PasswordMb" value="<%-setting.autoDeposit.MBbank.password%>"
+                                            type="text" class="form-control" placeholder="Password">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">accountNumber</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="accountNumberMb"
+                                            value="<%-setting.autoDeposit.MBbank.accountNumber%>" type="text"
+                                            class="form-control" placeholder="accountNumberMb">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Url Api</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="urlMb" type="text" value="<%-setting.autoDeposit.MBbank.urlApi%>"
+                                            class="form-control" placeholder="urlMb">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">IsRunning</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="isRunningMb" type="text" value="<%-setting.autoDeposit.MBbank.isRunning%>"
+                                            class="form-control" placeholder="isRunningMb">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <h2>Momo</h2>
+                                <h2 class="card-inside-title">phoneNumber</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="phoneNumberMomo" value="<%-setting.autoDeposit.Momo.phoneNumber%>"
+                                            type="text" class="form-control" placeholder="phoneNumber">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">urlApi</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="urlMomo" value="<%-setting.autoDeposit.Momo.urlApi%>" type="text"
+                                            class="form-control" placeholder="urlApi">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <h2>TheSieure.com</h2>
+                                <h2 class="card-inside-title">Username</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="usernameTsr" value="<%-setting.autoDeposit.Tsr.username%>"
+                                            type="text" class="form-control" placeholder="usernameTsr">
+                                    </div>
+                                </div>
+                                <h2 class="card-inside-title">Password</h2>
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input id="passwordTsr" value="<%-setting.autoDeposit.Tsr.password%>"
+                                            type="text" class="form-control" placeholder="passwordTsr">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                            <button type="button" onclick="saveAutoDeposit()"
+                                class="btn btn-primary m-t-15 waves-effect">Save</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    saveAutoDeposit = () => {
+        const UsernameMb = $("#UsernameMb").val()
+        const PasswordMb = $("#PasswordMb").val()
+        const accountNumberMb = $("#accountNumberMb").val()
+        const urlMb = $("#urlMb").val()
+        const isRunningMb = $("#isRunningMb").val()
+
+        const phoneNumberMomo = $("#phoneNumberMomo").val()
+        const urlApi = $("#urlApi").val()
+
+        const usernameTsr = $("#usernameTsr").val()
+        const passwordTsr = $("#passwordTsr").val()
+
+
+        var autoDeposit = {
+            MBbank: {
+                username: UsernameMb,
+                password: PasswordMb,
+                accountNumber: accountNumberMb,
+                urlApi: urlMb,
+                isRunning: isRunningMb,
+            },
+            Momo: {
+                phoneNumber: phoneNumberMomo,
+                urlApi: urlApi,
+            },
+            Tsr: {
+                username: usernameTsr,
+                password: passwordTsr
+            }
+        }
+
+        $.ajax({
+            url: "/deposit/saveDepositAuto",
+            type: "post",
+            data: {
+                autoDeposit: autoDeposit
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    SaveSetting = () => {
+        const hanmucngay = $("#hanmucngay").val()
+        const minin = $("#minin").val()
+        const maxin = $("#maxin").val()
+        $.ajax({
+            url: "/deposit/savesettingbank",
+            type: "post",
+            data: {
+                hanmucngay: hanmucngay,
+                minin: minin,
+                maxin: maxin
+            },
+            success: function (result) {
+                alert(result.message)
+            }
+        });
+    }
+    removeBank = (id) => {
+        $.ajax({
+            url: "/deposit/removebank",
+            type: "post",
+            data: {
+                _id: id
+            },
+            success: function (result) {
+                alert(result.message)
+                if (result.error == 0) {
+                    location.reload();
+                }
+            }
+        });
+    }
+    addBank = () => {
+        const name = $("#name").val()
+        const stk = $("#stk").val()
+        const bankname = $("#bankname").val()
+        const gate = $("#gate").val()
+        $.ajax({
+            url: "/deposit/gatemoney",
+            type: "post",
+            data: {
+                name: name,
+                stk: stk,
+                bankname: bankname,
+                gate: gate
+            },
+            success: function (result) {
+                alert(result.message)
+                if (result.error == 0) {
+                    location.reload();
+                }
+            }
+        });
+    }
+</script>

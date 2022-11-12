@@ -1,0 +1,196 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <section class="row">
+                    <div class="col-md-5">
+                        <h4><span class="text-uppercase">Tạo yêu cầu rút tiền</span></h4>
+
+                        <form method="POST" action="/withdraw" accept-charset="UTF-8">
+
+                            <div class="form-group">
+                                <label for="FormControlSelect">Số dư quỹ:</label>
+                                <strong class="text-success"><%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VND</strong>
+                              
+                            </div>
+                            <div class="form-group">
+                                <label for="amount">Số tiền rút:</label>
+                                <input name="amount" type="text" class="form-control" id="amount" placeholder="Số tiền"
+                                    value="">
+                                <small class="text-danger">Tối thiểu <%= String(Math.round(setting.withdraw.min)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VND , Tối đa <%= String(Math.round(setting.withdraw.max)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VND</small>
+                            </div>
+
+                            <div class="form-group">
+                                <div id="payment-render-Localbank">
+                                    <label>Chọn ngân hàng (<a href="/user/localbank">Thêm ngân
+                                            hàng</a>)</label>
+                                    <select id="paymentlist" name="bankinfo_id" class="form-control"
+                                        style="padding: 0px">
+
+                                        <%for(let i=0;i<userBanks.length;i++){%>
+
+                                            <option value="<%=userBanks[i].bank%>"><%=userBanks[i].bankinfo%> / STK:
+                                                <%=userBanks[i].stk%>, CTK: <%=userBanks[i].name%></option>
+
+                                        <%}%>                                  
+                                    </select>
+
+
+                                    
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <%if(userInfo.isActivePassLevel2){%>
+                                            
+                                    <label>Mã xác thực cấp 2</label>
+                                    <div><input type="password" class="form-control"
+                                            name="secret" placeholder="Nhập mật khẩu cấp 2">
+                                    </div>
+                            
+                                <%}%>
+                             </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-lg btn-warning">Rút tiền ngay</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-7">
+                        <h4><span class="text-uppercase">Hạn mức và phí</span></h4>
+                        <table class="table table-bordered table-striped dataTable">
+                            <tbody>
+                                <tr>
+                                    <td>Tổng hạn mức ngày</td>
+                                    <td><strong>Không giới hạn</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Số tiền tối thiểu</td>
+                                    <td><strong><%= String(Math.round(setting.withdraw.min)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Số tiền tối đa</td>
+                                    <td><strong><%= String(Math.round(setting.withdraw.max)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="table-scroll" class="table-scroll">
+                            <table class="table table-bordered table-striped dataTable fixed_headers">
+                                <thead>
+                                    <tr>
+                                        <th>Cổng thanh toán</th>
+                                        <th>Phí cố định</th>
+                                        <th>Phí %</th>
+                                       
+                                    </tr>
+                                </thead>
+                                <tbody class="scroll-data">
+                                    <tr>
+                                        <td>Áp dụng cho tất cả ngân hàng</td>
+                                        <td>0đ</td>
+                                        <td>0
+                                            %
+                                        </td>
+                                       
+                                    </tr>
+                                    <tr>
+                                        <td>TheSieuRe.Com</td>
+                                        <td>11,000đ</td>
+                                        <td>0
+                                            %
+                                        </td>
+                                       
+                                    </tr>
+                                    
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br>
+                    <div class="col-md-12 table-responsive">
+                        <h4><span class="text-uppercase">Lịch sử rút tiền</span></h4>
+
+                        <table class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>Đơn hàng</th>
+                                    <th>Số tiền</th>
+                                    <th>Ngân hàng nhận</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for (var i=0; i < data.length; i++) { %>
+                                    <tr>
+                                       
+
+
+                                        <td><%= data[i].transid %></td>
+                                        <td>-<%=String(data[i].amount).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VNĐ</td>
+                                        <td><%= data[i].bank.bankinfo %><br><%= data[i].bank.name %><br><%= data[i].bank.stk %></td>
+                                        <td><%= new Date(Date.parse(data[i].time)).toLocaleString("pt-BR")%></td>
+                                        <td>
+                                    
+                                                <%if(data[i].status==-1){%>
+                                                    <span class="label label-default">CHỜ THANH TOÁN</span>
+                                                    <%}else if(data[i].status==1){%>
+                                                        <span class="label label-success">HOÀN THÀNH</span>
+                                                    <%}else if(data[i].status==2){%>
+
+                                                        <span class="label label-danger">ĐÃ HỦY</span>
+
+                                                        <%}%>
+                                        </td>
+                                       
+
+                                    </tr>
+                                    <% } %>
+
+
+                            </tbody>
+                        </table>
+                        <% if (pages > 0) { %>
+                            <nav aria-label="...">
+                                <ul class="pagination">
+                                <% if (current == 1) { %>
+                                    <li class="page-item disabled"><a class="page-link">Đầu</a></li>
+                                <% } else { %>
+                                    <li><a class="page-link" href="/withdraw?page=1">Đầu</a></li>
+                                <% } %>
+                                <% var i = (Number(current) > 2 ? Number(current) - 2 : 1) %>
+                                <% if (i !== 1) { %>
+                                    <li class="disabled"><a class="page-link">...</a></li>
+                                <% } %>
+                                <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %>
+                                    <% if (i == current) { %>
+                                        <li class="page-item active"><a class="page-link"><%= i %></a></li>
+                                    <% } else { %>
+                                        <li><a class="page-link" href="/withdraw?page=<%= i %>"><%= i %></a></li>
+                                    <% } %>
+                                    <% if (i == Number(current) + 2 && i < pages) { %>
+                                        <li class="page-item disabled"><a class="page-link">...</a></li>
+                                    <% } %>
+                                <% } %>
+                                <% if (current == pages) { %>
+                                    <li class="page-item disabled"><a class="page-link">Cuối</a></li>
+                                <% } else { %>
+                                    <li><a class="page-link" href="/withdraw?page=<%= pages %>">Cuối</a></li>
+                                <% } %>
+                            </ul>
+                        </nav>
+                        <% } %>
+                    </div>
+                </section>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

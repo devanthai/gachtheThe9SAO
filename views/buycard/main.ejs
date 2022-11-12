@@ -1,0 +1,178 @@
+
+<div class="heading-page">
+    <div class="container">
+                    <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/"><span itemprop="name">Trang chủ</span></a>
+                        <span itemprop="position" content="1"></span>
+                    </li>
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/mua-the"><span itemprop="name">Mua mã thẻ</span></a>
+                        <span itemprop="position" content="2"></span>
+                    </li>
+                            </ol>
+            </div>
+</div>
+
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <section class="main softcard-page">
+                    <div class="blockContent row">
+                        <div class="col-sm-12">
+                            <h2 class="panel-title">Mua mã thẻ điện thoại, thẻ game online</h2>
+                            <p></p>
+                           
+
+                            <p>- Link nạp mã&nbsp;thẻ&nbsp;<strong>Carot </strong>(Giftcode) <a
+                                    href="https://pay.teamobi.com/index.php?c=gift">tại đây</a></p>
+
+                            <p>- Mua thẻ thông báo&nbsp;<strong>Chờ&nbsp;xử lý&nbsp;</strong>tức là giao dịch thất bại
+                                hệ thống sẽ hoàn lại tiền vào tài khoản Quý khách sau</p>
+                            <p></p>
+                        </div>
+                        <div class="col-sm-7 right-seperate">
+                            <div class="card-game-panel">
+                                <div class="form-frontpage">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#panel-sc-1">Thẻ điện thoại</a>
+                                        </li>
+                                        <li><a data-toggle="tab" href="#panel-sc-2">Thẻ game</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="text-center tab-pane fade in  active " id="panel-sc-1">
+                                            <div class="tnap-group border-active">
+                                                <%if(listCard.length==0){%>
+                                                    Hiện tại chưa có sản phẩm
+                                                <%}else{%>
+                                                    <% for (var i = 0; i < listCard.length; i++) { %>
+                                                        <%if(listCard[i].type=="mobile"){%>
+                                                        <div class="btn btn-xmd btn-default softcard-btn <%- i==0?'btn-primary':'' %> "
+                                                        data-toggle="tab" href="#panel-sc-option-<%-listCard[i].id%>" data-sc-id="<%-listCard[i].id%>">
+                                                        <img src="<%-listCard[i].card[0].image.replace('https://apiv2.netpay.vn','')%>"
+                                                            alt="<%-listCard[i].card[0].name%>" width="100" height="50">
+                                                        </div>
+                                                        <%}%>
+                                                    <%}%>
+                                                <%}%>
+
+                                            </div>
+                                        </div>
+                                        <div class="text-center tab-pane fade in " id="panel-sc-2">
+                                            <div class="tnap-group border-active">
+                                                <%if(listCard.length==0){%>
+                                                    Hiện tại chưa có sản phẩm
+                                                <%}else{%>
+                                                    <% for (var i = 0; i < listCard.length; i++) { %>
+                                                        <%if(listCard[i].type=="game"){%>
+                                                        <div class="btn btn-xmd btn-default softcard-btn <%- i==0?'btn-primary':'' %> "
+                                                        data-toggle="tab" href="#panel-sc-option-<%-listCard[i].id%>" data-sc-id="<%-listCard[i].id%>">
+                                                        <img src="<%-listCard[i].card[0].image.replace('https://apiv2.netpay.vn','')%>"
+                                                            alt="<%-listCard[i].card[0].name%>" width="100" height="50">
+                                                        </div>
+                                                        <%}%>
+                                                    <%}%>
+                                                <%}%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-left tab-content">
+                                        <label><strong>Chọn số tiền:</strong></label>
+                                        <% for (var i = 0; i < listCard.length; i++) { %>
+                                            <div class="tnap-group tab-pane fade in <%- i==0?'active':'' %>" id="panel-sc-option-<%-listCard[i].id%>">
+                                                
+                                                    <% for (var iz = 0; iz < listCard[i].card[0].items.length; iz++) { %>
+                                                        <div id="item-<%-listCard[i].card[0].items[iz].id%>" class="btn btn-xmd btn-default sc-item-btn <%-(listCard[i].card[0].items[iz].active?'btn-primary':'')%>" title="Viettel <%-String(Math.round(listCard[i].card[0].items[iz].value)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ" data-id="<%-listCard[i].card[0].items[iz].id%>" data-row="<%-listCard[i].card[0].items[iz].row%>">
+                                                        <span><%-listCard[i].card[0].items[iz].name%></span>
+                                                        </div>
+                                                    <%}%>
+                                               
+                                            </div>
+                                        <%}%>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <div class="row">
+                                <div class="right-pay" id="shopping-cart-wrapper">
+                                    <%-getHtml%>
+                                </div>
+                            </div>
+                            <div class="overlay" style="display: none;">
+                                <i class="fa fa-refresh fa-spin"></i>
+                            </div>
+                           
+                        </div>
+
+                    </div>
+                </section>
+
+
+
+                <h4><span class="text-uppercase">Lịch sử mua thẻ</span></h4>
+                <div class="blockContent">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-sm-12 table-responsive">
+                                <table id="example1" class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Đơn hàng</th>
+                                            <th>Sản phẩm</th>
+                                            <th>Đơn hàng</th>
+                                            <th>Số tiền</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Hành động</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+
+                                        <% for (var i=0; i < cardHistorys.length; i++) { %>
+                                            <tr>
+                                                <td><%-cardHistorys[i].transId%>
+                                                </td>
+                                                <td>
+
+                                                    <% for (var iz=0; iz < cardHistorys[i].data.length; iz++) { %>
+                                                        <b><%-(cardHistorys[i].data[iz].qty>1)?cardHistorys[i].data[iz].qty:''%></b> <%-cardHistorys[i].data[iz].card.name%><br>
+                                                    <%}%>
+
+                                                   
+                                                </td>
+    
+                                                <td>
+                                                    <span class="label label-success">Hoàn thành</span>
+    
+                                                </td>
+                                                <td><%= String(Math.round(cardHistorys[i].totalAmount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ VND</td>
+    
+                                                <td><%= new Date(Date.parse(cardHistorys[i].time)).toLocaleString("pt-BR")%></td>
+    
+                                                <td>
+    
+                                                    <a href="/mua-the/oder/<%-cardHistorys[i].transId%>"><button
+                                                            type="submit" class="btn btn-info btn-xs" value="delete">Xem
+                                                            đơn</button></a>
+                                                </td>
+                                            </tr>
+                                        <%}%>
+                                      
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

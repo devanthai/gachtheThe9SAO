@@ -1,0 +1,54 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                
+
+<h4><span class="text-uppercase">Số Dư Tài Khoản</span></h4>
+<section class="homepage">
+<div class="row">
+    <div class="col-md-12">
+
+
+        <div class="blockContent table-responsive">
+            <table class="table table-striped table-condensed">
+                <thead>
+                <tr>
+                    <th>Loại</th>
+                    <th>Số dư khả dụng</th>
+                    <th>Số dư tạm giữ</th>
+                    <th>Trạng thái</th>
+                    <th style="text-align: right">Chức năng</th>
+                </tr>
+                </thead>
+                <tbody>
+                                            <tr>
+                        <td>VND</td>
+                        <td>
+                            <span class="text-success"><b><%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</b></span>
+                        </td>
+                        <td>
+                        <span class="text-danger"><i><%= String(Math.round(userInfo.moneyBlock)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</i></span>
+                        </td>
+                        <td><span class="label label-success">Hoạt động</span>                                 </td>
+                        <td align="right">
+                            <a href="/wallet/history" style="padding-right: 15px"><i class="fa fa-history"></i> Lịch sử</a>
+                            <a href="/deposit" style="padding-right: 15px"><i class="fa fa-plus-circle"></i> Nạp tiền</a>
+                            <a href="/withdraw"><i class="fa fa-minus-circle"></i> Rút Tiền</a>
+
+                        </td>
+                    </tr>
+                
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</section>
+
+            </div>
+        </div>
+
+    </div>
+</div>

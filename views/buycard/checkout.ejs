@@ -1,0 +1,96 @@
+<div class="heading-page">
+    <div class="container">
+                    <ol class="breadcrumb" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/"><span itemprop="name">Trang chủ</span></a>
+                        <span itemprop="position" content="1"></span>
+                    </li>
+                                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+                        <a itemprop="item" href="/mua-the/checkout"><span itemprop="name">Thanh toán</span></a>
+                        <span itemprop="position" content="2"></span>
+                    </li>
+                            </ol>
+            </div>
+</div>
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4><span class="text-uppercase">Thông tin đơn hàng</span></h4>
+
+                        <table class="table table-bordered table-striped dataTable">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên dịch vụ</th>
+                                    <th>Đơn giá</th>
+                                    <th>SL</th>
+                                    <th class="text-center">Tổng</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+
+
+                                <% for (var i = 0; i < oders.listOder.length; i++) { %>
+                                    <tr>
+                                        <td><%-i+1%> </td>
+                                        <td data-th="product"><strong><%-oders.listOder[i].card.name %> (-<%-oders.listOder[i].card.discount%>%)</strong></td>
+                                        <td data-th="price"><%= String(Math.round(oders.listOder[i].card.price)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</td>
+                                        <td data-th="qty"><%-oders.listOder[i].qty%></td>
+                                        <td data-th="subtotal" class="text-center"><%= String(Math.round(oders.listOder[i].total)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</td>
+                                    </tr>
+                                <%}%>
+
+                                
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <div class="col-md-4">
+                        <h4><span class="text-uppercase">Thông tin thanh toán</span></h4>
+                        <table class="table table-bordered table-striped dataTable">
+                            <tbody>
+                                <tr>
+                                    <td>Thành tiền</td>
+                                    <td><%= String(Math.round(oders.totalCart)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ VND</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí</td>
+                                    <td>0 VND</td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng</td>
+                                    <td><strong class="text-danger"><%= String(Math.round(oders.totalCart)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ VND</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Cổng thanh toán</td>
+                                    <td>Wallet_VND</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <form action="/mua-the/confirm" method="POST">
+                            <%if(userInfo.isActivePassLevel2){%>
+                                <div class="form-group">
+                                    <label>Mã xác thực</label>
+                                    <div><input type="password" class="form-control" name="secret" placeholder="Nhập mật khẩu cấp 2"></div>
+                                </div>
+                            <%}%>
+                            <input type="hidden" name="action" value="doPayment">
+                            <button type="submit" class="btn btn-lg btn-warning btn-block"
+                                onclick="this.disabled=true;this.value='Loading...';this.form.submit();">Thanh toán ngay
+                                <i class="fa fa-angle-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

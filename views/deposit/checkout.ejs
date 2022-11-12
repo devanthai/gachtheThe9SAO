@@ -1,0 +1,74 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <h4><span class="text-uppercase">Thông tin đơn hàng</span></h4>
+
+                        <table class="table table-bordered table-striped dataTable">
+                            <tbody>
+                                <tr>
+                                    <td>Quỹ</td>
+                                    <td>VND</td>
+                                </tr>
+                                <tr>
+                                    <td>Số dư quỹ hiện tại</td>
+                                    <td><%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</td>
+                                </tr>
+                                <tr>
+                                    <td>Số tiền nạp </td>
+                                    <td>
+                                        <strong class="text-success"> <%= String(Math.round(deposit.amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Phí</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>Nội dung giao dịch</td>
+                                    <td> <%= deposit.content %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-md-4">
+                        <h4><span class="text-uppercase">Thông tin thanh toán</span></h4>
+                        <table class="table table-bordered table-striped dataTable">
+                            <tbody>
+                                <tr>
+                                    <td>Thành tiền</td>
+                                    <td><%= String(Math.round(deposit.amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VND</td>
+                                </tr>
+                                <tr>
+                                    <td>Phí</td>
+                                    <td>0 VND</td>
+                                </tr>
+                                <tr>
+                                    <td>Tổng</td>
+                                    <td><strong class="text-danger"><%= String(Math.round(deposit.amount)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%> VND</strong></td>
+                                </tr>
+                                <tr>
+                                    <td>Cổng thanh toán</td>
+                                    <td><%= deposit.gate %></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <form action="/deposit/checkout" method="POST">
+                            <input type="hidden" name="action" value="doPayment">
+                            <input type="hidden" name="order_code" value="<%=deposit.transid %>">
+                            <button type="submit" class="btn btn-lg btn-warning btn-block"
+                                onclick="this.disabled=true;this.value='Loading...';this.form.submit();">Thanh toán ngay
+                                <i class="fa fa-angle-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

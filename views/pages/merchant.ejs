@@ -1,0 +1,119 @@
+<div class="section">
+    <div class="container">
+        <div class="col-sm-12">
+            <div class="row mainpage-wrapper">
+
+                <h3 class="panel-title">Danh sách API</h3>
+                <%if(typeof message !="undefined" && message){%>
+                    <%-message%>
+                        <%}%>
+                <a href="https://documenter.getpostman.com/view/5740908/TVYJ5Ggr" target="_blank" rel="nofollow">
+                    <p>
+                        Tài liệu hướng dẫn API đổi thẻ cào</p>
+                </a>
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-striped dataTable">
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Thông tin</th>
+                                <th>Kiểu</th>
+                                <th>IP</th>
+                                <th>Trạng thái</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for (let i=0; i < merchant.length; i++) { %>
+                                <tr>
+                                    <td><%= merchant[i].name %></td>
+                                    <td>Partner ID: <%= merchant[i].PartnerID %> <br>
+                                        Partner Key: <%= merchant[i].PartnerKey %> <br>
+                                        Ví: <%= merchant[i].Username %>
+                                    </td>
+                                    <td>POST
+                                        <br>
+                                        <small><%= merchant[i].urlcallback %></small>
+                                    </td>
+                                    <td>
+                                        <%= merchant[i].ip %>
+                                    </td>
+                                    <td>
+                                        <%if(merchant[i].status==1){%>
+                                            <span class="label label-success">Hoạt động</span>
+                                        <% }else{ %>
+                                            <span class="label label-default">Đang tắt</span>
+                                        <% } %>
+                                     </td>
+                                    <td>
+                                        <form method="POST" action="/merchant/del/<%= merchant[i]._id %>"
+                                            accept-charset="UTF-8"
+                                            onsubmit="return confirm('Bạn có chắc chắn thực hiện hành động này?');">
+                                            <button type="submit" class="btn btn-danger btn-xs" value="delete">Xóa</button>
+                                        </form>
+    
+                                    </td>
+    
+                                </tr>
+
+                            <% } %>
+
+
+
+                            
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+
+                        <h4><span class="text-uppercase">Thêm mới</span></h4>
+
+                        <form method="POST" action="/merchant/add" accept-charset="UTF-8">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="name">Tên:</label>
+                                    <input name="name" type="text" class="form-control" id="name"
+                                        placeholder="Tên mô tả" value="">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="wallet_num">Chọn ví giao dịch:</label>
+                                    <select name="wallet_num" class="form-control" style="padding: 0px">
+                                        <option value="<%-user.Username%>">VND - <%= String(Math.round(userInfo.money)).replace(/(.)(?=(\d{3})+$)/g,'$1,')%>đ
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="callback_type">Kiểu:</label>
+                                    <select name="callback_type" class="form-control" style="padding: 0px">
+                                        <option value="GET">GET</option>
+                                        <option value="POST">POST</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="callback">Đường dẫn nhận dữ liệu (Callback Url):</label>
+                                    <input name="callback" type="text" class="form-control" id="callback"
+                                        placeholder="Đường dẫn nhận dữ liệu (Callback Url)" value="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="ips">Địa chỉ IP (không bắt buộc):</label>
+                                    <input name="ips" type="text" class="form-control" id="ips"
+                                        placeholder="Địa chỉ IP (không bắt buộc)" value="">
+                                </div>
+                            </div>
+
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Thêm thông tin kết nối</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
